@@ -1,0 +1,30 @@
+/* Header.css */
+.header {
+  display: flex;
+  align-items: center; /* Vertically center the items */
+  justify-content: center; /* Center the content horizontally */
+  background-color: #4caf50; /* Background color for the header */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Padding for spacing */
+  position: fixed; /* Fix the header to the top */
+  top: 0; /* Position it at the top */
+  left: 0; /* Align it to the left */
+  width: 100%; /* Make the header span the entire width of the screen */
+  z-index: 1000; /* Ensure the header stays above other content */
+}
+
+.logo {
+  max-width: 100px; /* Adjust the max width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 20px; /* Space between the logo and title */
+}
+
+h1 {
+  margin: 0; /* Remove default margin */
+  text-align: center; /* Center the text */
+}
+
+/* Add margin to the body to prevent content from being hidden under the fixed header */
+body {
+  margin-top: 80px; /* Adjust the margin for top content */
+}
