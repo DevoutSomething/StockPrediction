@@ -74,5 +74,59 @@ function createDefaultData() {
     profit: 14313,
     code: "TU",
   };
-  return [data1, data2, data3, data4];
+  const data5 = {
+    name: "amazon",
+    price: 3344,
+    risk: 0.55,
+    profit: 230,
+    code: "AMZN",
+  };
+  const data6 = {
+    name: "microsoft",
+    price: 299,
+    risk: 0.48,
+    profit: 100,
+    code: "MSFT",
+  };
+  const data7 = {
+    name: "facebook",
+    price: 375,
+    risk: 0.6,
+    profit: 80,
+    code: "META",
+  };
+  const data8 = {
+    name: "nvidia",
+    price: 850,
+    risk: 0.2,
+    profit: 150,
+    code: "NVDA",
+  };
+  const data9 = {
+    name: "netflix",
+    price: 650,
+    risk: 0.5,
+    profit: 120,
+    code: "NFLX",
+  };
+  const data10 = {
+    name: "paypal",
+    price: 270,
+    risk: 0.4,
+    profit: 60,
+    code: "PYPL",
+  };
+
+  return [
+    data1,
+    data2,
+    data3,
+    data4,
+    data5,
+    data6,
+    data7,
+    data8,
+    data9,
+    data10,
+  ];
 }

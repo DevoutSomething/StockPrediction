@@ -6,11 +6,34 @@
   max-width: 900px;
   margin: 0 auto;
   overflow-x: auto;
+  overflow-y: auto; /* Enable vertical scroll */
+  max-height: 500px; /* Limit height to allow scrolling */
   border: 3.8px solid #333333;
   border-radius: 12px;
   transition: border 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
     0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  scrollbar-width: thin; /* Firefox scrollbar style */
+  scrollbar-color: #769bd1 #121212; /* Thumb and track colors */
+}
+
+.table-container::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #121212; /* Track background color */
+  border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #5f91bd; /* Scroll thumb color */
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #5f91bd; /* Scroll thumb color on hover */
 }
 
 /* Table styling */
@@ -80,8 +103,8 @@ th button:hover {
   }
 }
 
-.veryRisky {
-  color: rgb(130, 0, 0);
+.highRisk {
+  color: rgb(180, 8, 8);
 }
 
 .mediumRisk {
@@ -103,5 +126,3 @@ a:hover {
   transform: scale(1.05); /* Slight growth effect on hover */
   opacity: 1; /* Full opacity on hover */
 }
-
-

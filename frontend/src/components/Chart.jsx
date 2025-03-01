@@ -23,9 +23,9 @@ export default function Chart({ dataArr }) {
   };
 
   const getRiskClass = (risk) => {
-    if (risk <= 0.3) return "veryRisky";
+    if (risk <= 0.3) return "lowRisk";
     if (risk <= 0.6) return "mediumRisk";
-    return "lowRisk";
+    return "highRisk";
   };
 
   return (
