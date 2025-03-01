@@ -1,6 +1,6 @@
 /* Header.css - Modern version */
 .header {
-  background-color: #005A9C; /* Dark blue background */
+  background-color: #005a9c; /* Dark blue background */
   color: white;
   padding: 0;
   position: fixed;
@@ -93,4 +93,3 @@ h1 {
     margin: 10px 0;
   }
 }
-

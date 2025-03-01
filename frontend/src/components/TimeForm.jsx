@@ -1,15 +1,26 @@
 import React, { useState, useRef } from "react";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
-
+import "./Styles/timeForm.css";
 export default function TimeForm({ state, setState, text, defaultText, id }) {
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
+  const [error, setError] = useState("");
   const calendarRef = useRef(null);
 
   const handleDateChange = (newDate) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time to only compare dates
+
+    if (newDate < today) {
+      setError("Please select a future date.");
+      return;
+    }
+
+    setError("");
     setDate(newDate);
     setState(newDate);
+    setShowCalendar(false); // Close calendar after valid selection
   };
 
   const formatDate = (date) => {
@@ -45,8 +56,9 @@ export default function TimeForm({ state, setState, text, defaultText, id }) {
         placeholder={defaultText}
         value={!state ? state : formatDate(state)}
         onFocus={handleInputFocus}
-        readonly
+        readOnly
       />
+      {error && <div className="error">{error}</div>}
       {showCalendar && (
         <div className="calendar-container" ref={calendarRef}>
           <Calendar onChange={handleDateChange} value={date} />
