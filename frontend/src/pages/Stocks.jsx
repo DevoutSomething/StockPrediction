@@ -7,7 +7,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 export default function Stocks() {
   let dataArr = createDefaultData();
   const { payment, time, profit } = useContext(GlobalContext);
-  const { loading, setLoading } = useState(false);
+  const [loading, setLoading] = useState(false);
   async function handleGetStocks() {
     try {
       setLoading(true);
@@ -39,7 +39,7 @@ export default function Stocks() {
   return (
     <div className="stocks-main">
       <Header backButton={true} />
-      <StockBody dataArr={dataArr} />
+      {!loading && <StockBody dataArr={dataArr} />}
       {loading && <LoadingSpinner />}
     </div>
   );
