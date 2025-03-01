@@ -1,30 +1,51 @@
+/* Modern CSS variables for consistent theming */
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-light: rgba(59, 130, 246, 0.1); /* No opacity changes */
+  --color-success: #10b981;
+  --color-success-light: rgba(16, 185, 129, 0.1); /* Removed opacity */
+  --color-text: #1f2937;
+  --color-text-light: #6b7280;
+  --color-background: #ffffff;
+  --color-border: #e5e7eb;
+  --color-border-focus: #3b82f6;
+  --border-radius: 12px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Form container with border and centered alignment */
 .form-container-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #f7f8fa; /* Light grey-blue background */
-  padding: 40px;
-  border-radius: 12px;
-  border: 2px solid #a0aec0; /* Light grey-blue border */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for modern look */
+  background-color: var(--color-background);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
   width: 100%;
-  max-width: 500px; /* Limit the overall form width */
-  margin: 20px auto;
-  transition: border-color 0.3s ease; /* Smooth transition for border color */
+  max-width: 500px;
+  margin: 1.5rem auto;
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
 }
 
-/* When all fields are filled, change the border color to green */
-.form-container-wrapper.filled {
-  border-color: #48bb78; /* Green border when all fields are filled */
+/* Subtle hover effect */
+.form-container-wrapper:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* General form container styling */
 .form-container {
   display: flex;
-  flex-direction: column; /* Stack form elements vertically */
-  gap: 30px; /* Space between inputs */
+  flex-direction: column;
+  gap: 1.75rem;
   width: 100%;
 }
 
@@ -32,48 +53,45 @@
 .input-group {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align labels and inputs to the left */
-  width: 100%; /* Full width of the form container */
-  padding: 10px 20px; /* Added padding for spacing inside input groups */
+  width: 100%;
+  position: relative;
 }
 
 /* Label styling */
 .input-group label {
-  font-size: 18px; /* Adjust font size for readability */
-  margin-bottom: 8px; /* Space below labels */
-  color: #2d3748; /* Slightly darker grey for better readability */
-  font-weight: bold;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+  transition: color var(--transition);
 }
 
 /* Input field styling */
 .input-group input {
-  width: 100%; /* Full width for the input field */
-  padding: 15px; /* Comfortable padding inside input */
-  font-size: 16px; /* Adjusted font size for consistency */
-  border: 2px solid #cbd5e0; /* Soft grey border */
-  border-radius: 8px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--border-radius) / 2);
+  background-color: var(--color-background);
+  color: var(--color-text);
   box-sizing: border-box;
-  margin-bottom: 15px; /* Space between input and label */
-  transition: border-color 0.3s, box-shadow 0.3s ease; /* Smooth transition for input focus */
+  transition: border-color var(--transition), box-shadow var(--transition),
+    background-color var(--transition);
 }
 
 /* Focus effect for input fields */
 .input-group input:focus {
-  border-color: #4a90e2; /* Blue border on focus */
+  border-color: var(--color-border-focus);
   outline: none;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5); /* Subtle glow effect */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); /* Reduced opacity */
+  background-color: var(--color-background);
 }
 
 /* Default state for empty inputs */
 .input-group input.empty {
-  color: #000;
-  border-color: #cbd5e0; /* Light grey border for empty input */
-}
-
-/* Styling for valid inputs */
-.input-group input.valid {
-  color: #48bb78; /* Green text for valid inputs */
-  border-color: #48bb78; /* Green border for valid inputs */
+  color: var(--color-text);
+  border-color: var(--color-border);
 }
 
 /* Hide spin buttons for number inputs */
@@ -81,4 +99,25 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .form-container-wrapper {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .input-group label {
+    font-size: 0.8125rem;
+  }
+
+  .input-group input {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+  }
 }
