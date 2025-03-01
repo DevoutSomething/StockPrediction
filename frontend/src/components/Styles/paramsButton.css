@@ -17,11 +17,11 @@
   margin-right: auto; /* Center horizontally */
   width: auto; /* Button size adjusts to text */
   max-width: 200px; /* Optional: Limit max width */
-  border: 2px solid black; /* Black border with subtle thickness */
+  border: 2px solid rgb(155, 186, 218); /* Black border with subtle thickness */
 }
 
 .params-button:hover {
-  background-color: #45a049; /* Darker green when hovering */
+  background-color: #60a5fa; /* Darker green when hovering */
   transform: scale(1.05); /* Slightly increase the button size on hover */
   cursor: pointer; /* Change cursor to indicate the button is clickable */
 }

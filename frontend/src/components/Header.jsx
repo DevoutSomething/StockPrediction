@@ -1,25 +1,29 @@
-import Logo from "./Logo";
-import "./Styles/Header.css";
-import { Link } from "react-router-dom";
+import Logo from "./Logo"
+import "./Styles/Header.css"
 
-const Header = () => {
+const Header = ({ backButton = false }) => {
   return (
-    <div className="header">
+    <header className="header">
       <div className="header-content">
-        <Logo className="logo" route="/" />
-        <h1>Stock Predictor</h1>
-        <nav className="main-nav">
-          <Link to="/" className="nav-link">
-          </Link>
-          <Link to="/params" className="nav-link">
-          </Link>
-          <Link to="/stocks" className="nav-link">
-            
-          </Link>
-        </nav>
+        <div className="logo-container">
+          <Logo className="logo" route="/" />
+          <div className="market-indicator">
+            <span className="indicator up"></span>
+            <span className="indicator down"></span>
+          </div>
+        </div>
+        <h1 className="header-title">
+          Stock<span>Predictor</span>
+        </h1>
+        {backButton && (
+          <div className="back-button-container">
+            <Logo logoSrc="/images/retry.png" className="back" route="/params" />
+          </div>
+        )}
       </div>
-    </div>
-  );
-};
+    </header>
+  )
+}
 
-export default Header;
+export default Header
+

@@ -5,12 +5,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
+  background-size: cover; /* Ensures the image covers the entire body */
+  background-position: center center; /* Centers the image */
+  background-attachment: fixed; /* Keeps the background fixed when scrolling */
+  background-image: url("./images/homeBackground.jpg"); /* Path to your image */
 }
 
 .home-container {
-  background-color: #f5f7fa; /* Light gray background */
   min-height: 100vh;
   padding: 0;
   margin: 0;
@@ -34,6 +35,7 @@ body {
   font-size: 2.2rem;
   color: #2c3e50;
   margin-bottom: 15px;
+  margin-top: 45px;
   font-weight: 600;
 }
 
@@ -51,6 +53,7 @@ body {
   border: none;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   padding: 30px;
+  margin-top: 80px;
   margin-bottom: 40px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -61,7 +64,7 @@ body {
 }
 
 .text-content p {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   line-height: 1.8;
   color: #555;
   font-size: 1rem;

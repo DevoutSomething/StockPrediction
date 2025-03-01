@@ -1,43 +1,54 @@
 /* General button styling */
 .stocks-button {
   display: inline-block;
-  padding: 18px 40px;
-  font-size: 20px;
-  font-weight: bold;
+  padding: 14px 36px; /* Slightly smaller padding for a sleeker look */
+  font-size: 18px; /* A more subtle font size */
+  font-weight: 600; /* Medium weight for a modern feel */
   color: #fff;
   text-align: center;
-  background-color: #28a745; /* Green color */
-  border-radius: 12px; /* Rounded corners */
+  background-color: #008c6d; /* A fresh teal color that matches your theme */
+  border-radius: 25px; /* More rounded corners for a modern pill shape */
   text-decoration: none;
-  border: 2px solid #28a745;
+  border: 2px solid #008c6d; /* Same color border for a smooth look */
   cursor: pointer;
-  transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
+  transition: all 0.3s ease; /* Smooth transition for hover, focus, and active effects */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Light shadow for depth */
+  outline: none;
 }
 
 /* Button when valid */
 .stocks-button.valid {
-  background-color: #337642; /* Green background */
-  border-color: #337642; /* Green border */
+  background-color: #006c4a; /* Slightly darker teal for the valid state */
+  border-color: #006c4a;
 }
 
 /* Hover effect to enlarge button */
 .stocks-button:hover {
-  transform: scale(1.1); /* Slightly increase size on hover */
-  background-color: #218838; /* Darker green when hovered */
-  border-color: #218838; /* Darker border on hover */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adding a subtle shadow effect */
+  transform: scale(1.05); /* Slight scale up for a smooth hover effect */
+  background-color: #007c5c; /* A subtle darker teal */
+  border-color: #007c5c; /* Border matches the background color */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* A more noticeable shadow on hover */
 }
 
 /* Active button effect */
 .stocks-button:active {
-  background-color: #1e7e34; /* Even darker green when clicked */
-  border-color: #1e7e34;
+  transform: scale(0.98); /* Slight shrink on click */
+  background-color: #4b5be8; /* Even darker teal for active state */
+  border-color: #020a4d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Subtle shadow when pressed */
 }
 
 /* Button when invalid */
 .stocks-button.invalid {
-  background-color: #47b14c; /* Red background when invalid */
-  border-color: #47b14c; /* Red border when invalid */
+  background-color: #0070e7; /* Red background for invalid */
+  border-color: #00155a;
+}
+
+/* Hover effect for invalid button */
+.stocks-button.invalid:hover {
+  background-color: #0085e4; /* Darker red on hover */
+  border-color: #004069;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Disabled button (optional for future use) */
@@ -49,6 +60,5 @@
 
 /* Additional focus effect */
 .stocks-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(72, 179, 66, 0.5); /* Green glow on focus */
+  box-shadow: 0 0 0 4px rgba(0, 140, 109, 0.5); /* Focus glow with a greenish hue */
 }

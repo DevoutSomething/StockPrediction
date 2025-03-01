@@ -6,4 +6,16 @@
   padding-top: 80px; /* Padding from the header to the inputs */
   height: 100vh;
   justify-content: flex-start; /* Align items to the top */
+  background-image: url("./images/background.png"); /* Reference the image */
+  background-size: cover; /* Ensure the background image covers the entire page */
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  color: #333; /* Ensure text is dark enough to contrast against the background */
+  font-family: "Arial", sans-serif;
+  transition: background 0.3s ease; /* Smooth transition on background */
+}
+
+/* Optional: Adding a box shadow around the page */
+.params-page {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }

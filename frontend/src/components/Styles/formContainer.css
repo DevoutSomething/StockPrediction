@@ -1,59 +1,97 @@
+/* Modern CSS variables for consistent theming */
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-light: rgba(59, 130, 246, 0.1); /* No opacity changes */
+  --color-success: #10b981;
+  --color-success-light: rgba(16, 185, 129, 0.1); /* Removed opacity */
+  --color-text: #1f2937;
+  --color-text-light: #6b7280;
+  --color-background: #ffffff;
+  --color-border: #e5e7eb;
+  --color-border-focus: #3b82f6;
+  --border-radius: 12px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Form container with border and centered alignment */
+.form-container-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--color-background);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 500px;
+  margin: 1.5rem auto;
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+/* Subtle hover effect */
+.form-container-wrapper:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
 /* General form container styling */
 .form-container {
   display: flex;
-  justify-content: center; /* Align input groups horizontally */
-  gap: 70px; /* Increased space between inputs for a more spacious layout */
+  flex-direction: column;
+  gap: 1.75rem;
   width: 100%;
-  max-width: 900px; /* Limit the form width */
-  flex-wrap: wrap; /* Allow inputs to wrap if necessary */
-  padding: 20px; /* Add padding to prevent elements from touching the edges */
 }
 
 /* Input group styling */
 .input-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px; /* Increased space between form groups */
-  width: 250px; /* Set a specific width for input groups */
+  width: 100%;
+  position: relative;
 }
 
 /* Label styling */
 .input-group label {
-  font-size: 20px; /* Larger label text */
-  margin-bottom: 15px; /* Increased space below labels */
-  color: #333; /* Darker color for better readability */
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+  transition: color var(--transition);
 }
 
 /* Input field styling */
 .input-group input {
-  width: 100%; /* Ensure inputs take up the full width of their container */
-  padding: 18px; /* Increased padding for a more comfortable user experience */
-  font-size: 18px; /* Larger text inside the input */
-  border: 2px solid #ccc;
-  border-radius: 8px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--border-radius) / 2);
+  background-color: var(--color-background);
+  color: var(--color-text);
   box-sizing: border-box;
-  margin-bottom: 20px; /* More space below inputs */
-  transition: border-color 0.3s, color 0.3s ease; /* Smooth transition for input focus effects */
+  transition: border-color var(--transition), box-shadow var(--transition),
+    background-color var(--transition);
 }
 
 /* Focus effect for input fields */
 .input-group input:focus {
-  border-color: #007bff;
+  border-color: var(--color-border-focus);
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus effect for better visibility */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); /* Reduced opacity */
+  background-color: var(--color-background);
 }
 
 /* Default state for empty inputs */
 .input-group input.empty {
-  color: black;
-  border-color: #ccc;
-}
-
-/* Styling for valid inputs */
-.input-group input.valid {
-  color: #337642; /* Green text for valid inputs */
-  border-color: #337642; /* Green border for valid inputs */
+  color: var(--color-text);
+  border-color: var(--color-border);
 }
 
 /* Hide spin buttons for number inputs */
@@ -61,4 +99,25 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .form-container-wrapper {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .input-group label {
+    font-size: 0.8125rem;
+  }
+
+  .input-group input {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+  }
 }
