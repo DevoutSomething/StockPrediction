@@ -5,12 +5,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
+  background-size: cover; /* Ensures the image covers the entire body */
+  background-position: center center; /* Centers the image */
+  background-attachment: fixed; /* Keeps the background fixed when scrolling */
+  background-image: url("./images/homeBackground.jpg"); /* Path to your image */
 }
 
 .home-container {
-  background-color: #f5f7fa; /* Light gray background */
   min-height: 100vh;
   padding: 0;
   margin: 0;
