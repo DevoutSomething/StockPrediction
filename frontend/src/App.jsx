@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/Header.jsx";
 import Home from "./pages/Home.jsx";
 import Params from "./pages/Params.jsx";
 import Stocks from "./pages/Stocks.jsx";
