@@ -6,6 +6,11 @@
   border-color: #337642; /* Green border for valid input */
 }
 
+/* Valid state for the label */
+.input-group label.valid {
+  color: #337642; /* Green text for label when input is valid */
+}
+
 /* General input field styling */
 .input-group input {
   width: 100%;

@@ -2,9 +2,18 @@ import React from "react";
 import "./Styles/form.css";
 
 export default function Form({ state, setState, text, defaultText, id }) {
-  // Determine if the value is falsy or truthy
   const inputClass = state ? "valid" : "empty";
-  const labelClass = state ? "valid" : "empty"; // Apply the same logic to the label
+  const labelClass = state ? "valid" : "empty";
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+
+    if (!isNaN(value) && value !== "" && parseFloat(e.target.value) > 0) {
+      setState(value);
+    } else {
+      setState("");
+    }
+  };
 
   return (
     <div className="input-group">
@@ -17,8 +26,8 @@ export default function Form({ state, setState, text, defaultText, id }) {
         name={id}
         placeholder={defaultText}
         value={state}
-        onChange={(e) => setState(e.target.value)}
-        className={inputClass} // Apply class based on input value
+        onChange={handleInputChange}
+        className={inputClass}
       />
     </div>
   );
