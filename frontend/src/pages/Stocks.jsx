@@ -6,7 +6,7 @@ export default function Stocks() {
 
   return (
     <div>
-      <Header />
+      <Header backButton={true} />
       <StockBody dataArr={dataArr} />
     </div>
   );
