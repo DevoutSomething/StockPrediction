@@ -14,8 +14,14 @@
   transition: all 0.3s ease; /* Smooth transition for hover, focus, and active effects */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Light shadow for depth */
   outline: none;
+  margin: 0 auto; /* Center button horizontally if needed */
+  display: block; /* Ensures the button follows normal flow */
 }
-
+.button-container {
+  display: flex; /* Aligns button with Flexbox */
+  justify-content: center; /* Centers button horizontally */
+  margin-top: 20px; /* Adjust this value to move button closer or further */
+}
 /* Button when valid */
 .stocks-button.valid {
   background-color: #006c4a; /* Slightly darker teal for the valid state */

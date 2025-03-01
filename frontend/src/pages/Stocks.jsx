@@ -1,8 +1,36 @@
+import { useEffect, useContext } from "react";
 import Header from "../components/Header";
+import { GlobalContext } from "../context";
 import StockBody from "../components/StockBody";
-
+import axios from "axios";
 export default function Stocks() {
-  const dataArr = createDefaultData();
+  let dataArr = createDefaultData();
+  const { payment, time, profit } = useContext(GlobalContext);
+
+  async function handleGetStocks() {
+    try {
+      const response = await axios.get("http://localhost:33306/", {
+        params: {
+          payment: payment,
+          time: time,
+          profit: profit,
+        },
+      });
+      const result = await response.data;
+
+      if (result) {
+        dataArr = result;
+      } else {
+        dataArr = createDefaultData();
+      }
+    } catch (e) {
+      console.log("data not fetched " + e);
+      dataArr = createDefaultData();
+    }
+  }
+  useEffect(() => {
+    handleGetStocks();
+  }, []);
 
   return (
     <div className="stocks-main">

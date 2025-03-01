@@ -1,39 +1,38 @@
 :root {
-    --text-primary: #111827;
-  }
-  
-  .chart-header {
-    text-align: center;
-    padding: 4rem 0 2rem 0; /* Increased top padding */
-    margin-bottom: 1rem;
-  }
-  
+  --text-primary: #111827;
+}
+
+.chart-header {
+  text-align: center;
+  padding: 4rem 0 2rem 0; /* Increased top padding */
+  margin-bottom: 1rem;
+}
+
+.chart-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+@media (max-width: 768px) {
   .chart-header h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #111827;
-    color: var(--text-primary);
-    margin: 0;
-    line-height: 1.2;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.5rem;
   }
-  
-  @media (max-width: 768px) {
-    .chart-header h1 {
-      font-size: 1.5rem;
-    }
-    .chart-header {
-      padding: 3rem 0 1.5rem 0;
-    }
+  .chart-header {
+    padding: 3rem 0 1.5rem 0;
   }
-  
-  @media (max-width: 480px) {
-    .chart-header h1 {
-      font-size: 1.25rem;
-    }
-    .chart-header {
-      padding: 2rem 0 1rem 0;
-    }
+}
+
+@media (max-width: 480px) {
+  .chart-header h1 {
+    font-size: 1.25rem;
   }
-  
-  
+  .chart-header {
+    padding: 2rem 0 1rem 0;
+  }
+}

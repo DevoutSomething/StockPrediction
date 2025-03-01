@@ -3,7 +3,7 @@ import { GlobalContext } from "../context";
 import Form from "../components/Form";
 import TimeForm from "../components/TimeForm";
 import "./Styles/formContainer.css";
-
+import StocksBtn from "./StocksBtn";
 export default function FormContainer() {
   const { payment, setPayment, time, setTime, profit, setProfit } =
     useContext(GlobalContext);
@@ -40,6 +40,7 @@ export default function FormContainer() {
             defaultText="Enter When to Sell"
           />
         </div>
+        {payment && time && profit && <StocksBtn route="/stocks" />}
       </div>
     </div>
   );

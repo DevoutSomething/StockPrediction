@@ -11,7 +11,8 @@
   --color-border-focus: #3b82f6;
   --border-radius: 12px;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -49,22 +50,30 @@
   width: 100%;
   max-width: 900px;
   margin: auto; /* Ensures centering */
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
 }
 
 /* Gradient animation */
 @keyframes gradientAnimation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Subtle hover effect */
 .form-container-wrapper:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.05);
 }
 
 /* General form container styling */
@@ -102,7 +111,8 @@
   background-color: var(--color-background);
   color: var(--color-text);
   box-sizing: border-box;
-  transition: border-color var(--transition), box-shadow var(--transition), background-color var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition),
+    background-color var(--transition);
 }
 
 /* Focus effect for input fields */
@@ -130,30 +140,21 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* Responsive adjustments */
-@media (max-width: 640px) {
-  .form-container-wrapper {
-    padding: 1.5rem;
-    margin: 1rem;
-  }
+.input-group label {
+  font-size: 0.8125rem;
+}
 
-  .input-group label {
-    font-size: 0.8125rem;
-  }
+.input-group input {
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+}
 
-  .input-group input {
-    padding: 0.625rem 0.875rem;
-    font-size: 0.9375rem;
-  }
-
-  .form-description {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: white; /* Setting text color to white */
-    text-align: center;
-    margin-bottom: 1.5rem;
-    letter-spacing: 1px;
-    transition: color var(--transition);
-  }
-  
+.form-description {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: white; /* Setting text color to white */
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  transition: color var(--transition);
 }
