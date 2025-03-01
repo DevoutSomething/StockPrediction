@@ -1,13 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 const Logo = ({ logoSrc = "/images/logo.png", className, route }) => {
   return (
-    <nav>
+    <div className="logo-container">
       <Link to={route}>
-        <img src={logoSrc} alt="logo" className={className} />
+        <img src={logoSrc || "/placeholder.svg"} alt="Stock Predictor" className={className} />
       </Link>
-    </nav>
-  );
-};
+    </div>
+  )
+}
 
-export default Logo;
+export default Logo
+

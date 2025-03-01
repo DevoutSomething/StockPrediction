@@ -1,40 +1,128 @@
-/* Home.css */
+/* body.css - Modern version */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
-/* Set a distinct background color for the entire page */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+}
+
 .home-container {
-  background-color: #e9f1f7; /* Light blue background for the entire page */
-  min-height: 100vh; /* Ensure the page takes full height */
-  font-family: Arial, sans-serif; /* Set a default font */
-  padding: 0; /* Remove default padding */
-  margin: 0; /* Remove default margin */
+  background-color: #f5f7fa; /* Light gray background */
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
 }
 
-/* Style for the body content inside Home */
-.home-container .body-container {
-  padding-top: 70px; /* Make space for the header */
+.body-container {
+  padding-top: 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-/* Styling for the h1 element inside the Body */
-.home-container .body-container h1 {
+.section-title {
   text-align: center;
-  margin-bottom: 20px; /* Add space below the h1 */
-  color: #333; /* Dark text color for the heading */
+  margin-bottom: 40px;
+  position: relative;
 }
 
-/* The main text container */
-.home-container .text-content {
-  padding: 20px; /* Add padding to the text */
-  background-color: #ffffff; /* White background for the text content */
-  border-radius: 8px; /* Rounded corners for the box */
-  border: 1px solid #ddd; /* Light border around the box */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow around the box */
-  max-width: 900px; /* Max width to keep it readable */
-  margin: 0 auto; /* Center the content */
-}
-
-/* Optional styling for the paragraphs inside the text content */
-.home-container .text-content p {
+.section-title h1 {
+  font-size: 2.2rem;
+  color: #2c3e50;
   margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.underline {
+  height: 4px;
+  width: 70px;
+  background: linear-gradient(to right, #3498db, #2ecc71);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.text-content {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  margin-bottom: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.text-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.text-content p {
+  margin-bottom: 20px;
+  line-height: 1.8;
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Feature cards */
+.feature-cards {
+  display: flex;
+  gap: 25px;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  flex: 1;
+  min-width: 250px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid #3498db;
+}
+
+.feature-card:nth-child(2) {
+  border-top-color: #2ecc71;
+}
+
+.feature-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: #666;
   line-height: 1.6;
-  color: #555; /* Dark gray text color for better readability */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .body-container {
+    padding-top: 140px;
+  }
+
+  .feature-cards {
+    flex-direction: column;
+  }
+
+  .section-title h1 {
+    font-size: 1.8rem;
+  }
 }
