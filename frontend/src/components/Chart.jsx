@@ -1,7 +1,6 @@
-"use client";
-
 import { useState } from "react";
 import "./Styles/chart.css";
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 export default function Chart({ dataArr }) {
   const [data, setData] = useState(dataArr);
@@ -10,72 +9,17 @@ export default function Chart({ dataArr }) {
   const [sortedByRisk, setSortedByRisk] = useState(false);
   const [sortedByProfit, setSortedByProfit] = useState(false);
 
-  const sortDataName = () => {
+  const sortData = (key, setSortedBy, sortedBy) => {
     const sortedData = [...data];
 
     sortedData.sort((a, b) => {
-      if (a.name < b.name) {
-        return sortedByName ? 1 : -1;
-      }
-      if (a.name > b.name) {
-        return sortedByName ? -1 : 1;
-      }
+      if (a[key] < b[key]) return sortedBy ? 1 : -1;
+      if (a[key] > b[key]) return sortedBy ? -1 : 1;
       return 0;
     });
 
     setData(sortedData);
-    setSortedByName(!sortedByName);
-  };
-
-  const sortDataPrice = () => {
-    const sortedData = [...data];
-
-    sortedData.sort((a, b) => {
-      if (a.price < b.price) {
-        return sortedByPrice ? 1 : -1;
-      }
-      if (a.price > b.price) {
-        return sortedByPrice ? -1 : 1;
-      }
-      return 0;
-    });
-
-    setData(sortedData);
-    setSortedByPrice(!sortedByPrice);
-  };
-
-  const sortDataRisk = () => {
-    const sortedData = [...data];
-
-    sortedData.sort((a, b) => {
-      if (a.risk < b.risk) {
-        return sortedByRisk ? 1 : -1;
-      }
-      if (a.risk > b.risk) {
-        return sortedByRisk ? -1 : 1;
-      }
-      return 0;
-    });
-
-    setData(sortedData);
-    setSortedByRisk(!sortedByRisk);
-  };
-
-  const sortDataProfit = () => {
-    const sortedData = [...data];
-
-    sortedData.sort((a, b) => {
-      if (a.profit < b.profit) {
-        return sortedByProfit ? 1 : -1;
-      }
-      if (a.profit > b.profit) {
-        return sortedByProfit ? -1 : 1;
-      }
-      return 0;
-    });
-
-    setData(sortedData);
-    setSortedByProfit(!sortedByProfit);
+    setSortedBy(!sortedBy);
   };
 
   const getRiskClass = (risk) => {
@@ -83,6 +27,7 @@ export default function Chart({ dataArr }) {
     if (risk <= 0.6) return "mediumRisk";
     return "lowRisk";
   };
+
   return (
     <div>
       <div className="table-container">
@@ -90,16 +35,24 @@ export default function Chart({ dataArr }) {
           <thead>
             <tr>
               <th>
-                <button onClick={sortDataName}>Name</button>
+                <button onClick={() => sortData("name", setSortedByName, sortedByName)}>
+                  Name {sortedByName ? <FaChevronUp /> : <FaChevronDown />}
+                </button>
               </th>
               <th>
-                <button onClick={sortDataPrice}>Price</button>
+                <button onClick={() => sortData("price", setSortedByPrice, sortedByPrice)}>
+                  Price {sortedByPrice ? <FaChevronUp /> : <FaChevronDown />}
+                </button>
               </th>
               <th>
-                <button onClick={sortDataProfit}>Profit</button>
+                <button onClick={() => sortData("profit", setSortedByProfit, sortedByProfit)}>
+                  Profit {sortedByProfit ? <FaChevronUp /> : <FaChevronDown />}
+                </button>
               </th>
               <th>
-                <button onClick={sortDataRisk}>Risk</button>
+                <button onClick={() => sortData("risk", setSortedByRisk, sortedByRisk)}>
+                  Risk {sortedByRisk ? <FaChevronUp /> : <FaChevronDown />}
+                </button>
               </th>
             </tr>
           </thead>
