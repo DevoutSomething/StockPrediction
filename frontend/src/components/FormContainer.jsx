@@ -25,7 +25,7 @@ export default function FormContainer() {
                 isFirst={true}
                 state={payment}
                 setState={setPayment}
-                text="Ai-Powered Investment Risk & Growth Estimator"
+                text="Investment"
                 id="payment"
                 defaultText="Enter Investment"
               />
