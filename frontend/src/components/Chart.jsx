@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import "./styles/chart.css"
+import "./Styles/chart.css"
 
 export default function Chart({ dataArr }) {
   const [data, setData] = useState(dataArr)
@@ -113,4 +113,3 @@ export default function Chart({ dataArr }) {
     </div>
   )
 }
-
