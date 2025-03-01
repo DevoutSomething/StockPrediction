@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./Styles/form.css";
-import { useRef, useEffect } from "react";
+
 export default function Form({
   state,
   setState,
@@ -11,21 +11,47 @@ export default function Form({
 }) {
   const inputClass = state ? "valid" : "empty";
   const labelClass = state ? "valid" : "empty";
+  const [rawValue, setRawValue] = useState(state);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
 
-    if (!isNaN(value) && value !== "" && parseFloat(e.target.value) > 0) {
-      setState(value);
-    } else {
-      setState("");
+    if (/^\d*\.?\d*$/.test(value)) {
+      setRawValue(value);
     }
   };
 
-  // Create a ref for the first form element
+  const handleBlur = () => {
+    if (rawValue) {
+      const numericValue = parseFloat(rawValue);
+      if (!isNaN(numericValue)) {
+        const formattedValue = `$${numericValue.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}`;
+        setState(numericValue.toString()); // Update parent state with numeric value
+        setRawValue(formattedValue); // Update local state with formatted value
+      }
+    } else {
+      setState(rawValue); // Update parent state with raw value
+    }
+  };
+
+  const handleFocus = () => {
+    if (rawValue) {
+      const numericValue = rawValue.replace(/[^0-9.]/g, "");
+      setRawValue(numericValue);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.keyCode === 13) {
+      e.target.blur();
+    }
+  };
+
   const firstFormElementRef = useRef(null);
 
-  // Focus the first form element when the component mounts
   useEffect(() => {
     if (firstFormElementRef.current && isFirst) {
       firstFormElementRef.current.focus();
@@ -39,12 +65,15 @@ export default function Form({
       </label>
       <input
         ref={firstFormElementRef}
-        type="number"
+        type="text" // Use "text" type to allow flexible input
         id={id}
         name={id}
         placeholder={defaultText}
-        value={state}
+        value={rawValue}
         onChange={handleInputChange}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        onKeyDown={handleKeyDown} // Add keydown handler
         className={inputClass}
       />
     </div>
