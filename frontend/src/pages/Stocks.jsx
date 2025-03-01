@@ -4,10 +4,13 @@ import { GlobalContext } from "../context";
 import StockBody from "../components/StockBody";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
+import FinanceBackground from "../components/FinanceBackground";
+import "../components/Styles/stocks.css";
 export default function Stocks() {
   let dataArr = createDefaultData();
   const { payment, time, profit } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
+
   async function handleGetStocks() {
     try {
       setLoading(true);
@@ -32,12 +35,19 @@ export default function Stocks() {
       setLoading(false);
     }
   }
+
   useEffect(() => {
     handleGetStocks();
   }, []);
 
   return (
     <div className="stocks-main">
+      {/* SwirlAnimation as background */}
+      <div className="background-container">
+        <FinanceBackground />
+      </div>
+
+      {/* Page content */}
       <Header backButton={true} />
       {!loading && <StockBody dataArr={dataArr} />}
       {loading && <LoadingSpinner />}
