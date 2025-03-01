@@ -1,0 +1,105 @@
+/* Main input field styles */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  input[type="text"]:focus {
+    border-color: #000;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Label styles */
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  /* Calendar container */
+  .calendar-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Customize the calendar to have a modern black and white design */
+  .react-calendar {
+    width: 100%;
+    border: none;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .react-calendar__tile {
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .react-calendar__tile:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .react-calendar__tile--active {
+    background-color: #000;
+    color: white;
+  }
+  
+  .react-calendar__month-view__days__day {
+    font-size: 16px;
+    padding: 12px;
+    color: #333;
+  }
+  
+  /* Apply modern styles for navigation arrows and buttons */
+  .react-calendar__navigation button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .react-calendar__navigation button:hover {
+    color: #000;
+  }
+  
+  .react-calendar__navigation button:focus {
+    outline: none;
+  }
+  
+  /* Weekday header styles */
+  .react-calendar__month-view__weekdays {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .react-calendar__month-view__weekdays__weekday {
+    padding: 10px;
+    text-align: center;
+  }
+  
