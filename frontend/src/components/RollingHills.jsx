@@ -27,26 +27,30 @@ const RollingHills = () => {
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
+    // Create a wave geometry in 3D (X, Y, Z)
     const waveGeometry = new THREE.BufferGeometry();
     const vertices = [];
     const colors = [];
-    const amplitude = 2;
-    const frequency = 0.5;
-    const segments = 200;
-    const depth = 200;
+    const amplitude = 2; // Height of the wave
+    const frequency = 0.5; // Frequency of the wave
+    const segments = 150; // Number of segments in the wave
+    const depth = 200; // Depth of the wave (Z direction)
 
     for (let i = 0; i <= segments; i++) {
       for (let j = 0; j <= depth; j++) {
-        const x = (i / segments) * 20 - 10;
-        const z = (j / depth) * 20 - 10;
-        const y = Math.sin(Math.sqrt(x * x + z * z) * frequency) * amplitude;
+        const x = (i / segments) * 20 - 10; // Spread the wave along the X-axis
+        const z = (j / depth) * 20 - 10; // Spread the wave along the Z-axis
+        const y = Math.sin(Math.sqrt(x * x + z * z) * frequency) * amplitude; // 3D sine wave
 
-        vertices.push(x, y - 2, z);
+        vertices.push(x, y - 2, z); // Move the wave down by subtracting 2 from the y-axis
+
         const color = new THREE.Color();
-        color.setHSL(0.5 + (i / segments) * 0.3, 1, 0.5);
+        color.setHSL(0.5 + (i / segments) * 0.3, 1, 0.5); // Hue from 0.5 (blue) to 0.8 (green)
+        colors.push(color.r, color.g, color.b);
       }
     }
 
+    // Set the vertices and colors in the geometry
     waveGeometry.setAttribute(
       "position",
       new THREE.Float32BufferAttribute(vertices, 3)
@@ -61,6 +65,7 @@ const RollingHills = () => {
     const waveMesh = new THREE.LineSegments(waveGeometry, waveMaterial);
     scene.add(waveMesh);
 
+    // Animation loop
     const animate = () => {
       requestAnimationFrame(animate);
 
@@ -96,7 +101,6 @@ const RollingHills = () => {
     };
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       if (mountRef.current) {
         window.removeEventListener("resize", handleResize);
