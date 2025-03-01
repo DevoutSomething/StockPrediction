@@ -3,12 +3,15 @@ import { GlobalContext } from "../context";
 import Form from "../components/Form";
 import TimeForm from "../components/TimeForm";
 import "./Styles/formContainer.css";
+
 export default function FormContainer() {
   const { payment, setPayment, time, setTime, profit, setProfit } =
     useContext(GlobalContext);
+
   return (
     <div className="form-container">
       <Form
+        isFirst={true}
         state={payment}
         setState={setPayment}
         text="Payment"

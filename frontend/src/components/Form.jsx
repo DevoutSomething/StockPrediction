@@ -1,7 +1,14 @@
 import React from "react";
 import "./Styles/form.css";
-
-export default function Form({ state, setState, text, defaultText, id }) {
+import { useRef, useEffect } from "react";
+export default function Form({
+  state,
+  setState,
+  text,
+  defaultText,
+  id,
+  isFirst = false,
+}) {
   const inputClass = state ? "valid" : "empty";
   const labelClass = state ? "valid" : "empty";
 
@@ -15,12 +22,23 @@ export default function Form({ state, setState, text, defaultText, id }) {
     }
   };
 
+  // Create a ref for the first form element
+  const firstFormElementRef = useRef(null);
+
+  // Focus the first form element when the component mounts
+  useEffect(() => {
+    if (firstFormElementRef.current && isFirst) {
+      firstFormElementRef.current.focus();
+    }
+  }, []);
+
   return (
     <div className="input-group">
       <label htmlFor={id} className={labelClass}>
         {text}
       </label>
       <input
+        ref={firstFormElementRef}
         type="number"
         id={id}
         name={id}
