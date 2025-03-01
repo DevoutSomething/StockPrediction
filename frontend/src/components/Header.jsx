@@ -14,13 +14,12 @@ const Header = ({ backButton = false }) => {
         <div className="logo-container">
           <Logo className="logo" route="/" />
         </div>
+
+        {/* Moved market indicator to the right */}
         <div className="market-indicator">
           <span className="indicator up"></span>
           <span className="indicator down"></span>
         </div>
-
-        {/* Empty div to maintain the space-between layout */}
-        <div className="placeholder"></div>
       </div>
     </header>
   )
