@@ -1,0 +1,7 @@
+.form-container {
+  display: flex;
+  justify-content: center; /* Align input groups horizontally */
+  gap: 20px; /* Space between inputs */
+  width: 100%;
+  max-width: 800px; /* Limit the form width */
+}
