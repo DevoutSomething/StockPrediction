@@ -30,7 +30,7 @@ export default function Form({
     if (firstFormElementRef.current && isFirst) {
       firstFormElementRef.current.focus();
     }
-  }, []);
+  }, [isFirst]);
 
   return (
     <div className="input-group">
