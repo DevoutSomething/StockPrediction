@@ -33,7 +33,7 @@ body {
 .section-title h1 {
   font-size: 2.2rem;
   color: #2c3e50;
-  margin-bottom: 125px;
+  margin-bottom: 15px;
   margin-top: 45px;
   font-weight: 600;
 }
@@ -52,7 +52,7 @@ body {
   border: none;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   padding: 30px;
-  margin-top: 125px;
+  margin-top: 80px;
   margin-bottom: 40px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
