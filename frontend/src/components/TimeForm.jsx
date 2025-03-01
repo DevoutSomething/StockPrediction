@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 
-export default function TimeForm({ setState, text, defaultText, id }) {
+export default function TimeForm({ state, setState, text, defaultText, id }) {
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef(null);
@@ -43,7 +43,7 @@ export default function TimeForm({ setState, text, defaultText, id }) {
         id={id}
         name={id}
         placeholder={defaultText}
-        value={formatDate(date)}
+        value={!state ? state : formatDate(state)}
         onChange={(e) => setState(e.target.value)}
         onFocus={handleInputFocus}
       />
