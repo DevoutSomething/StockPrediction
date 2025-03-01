@@ -2,13 +2,13 @@
 
 /* Valid state for the input */
 .input-group input.valid {
-  color: #337642; /* Green text for valid date */
-  border-color: #337642; /* Green border for valid input */
+  color: #2be253; /* Green text for valid date */
+  border-color: #2be253; /* Green border for valid input */
 }
 
 /* Valid state for the label */
 .input-group label.valid {
-  color: #337642; /* Green text for label when input is valid */
+  color: #e8ebe9; /* Green text for label when input is valid */
 }
 
 /* General input field styling */
