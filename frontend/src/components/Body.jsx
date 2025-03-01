@@ -4,7 +4,7 @@ export default function Body() {
   return (
     <div className="body-container">
       <div className="section-title">
-        <h1>Description</h1>
+        <h1>Our Goals</h1>
         <div className="underline"></div>
       </div>
 

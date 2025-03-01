@@ -13,7 +13,7 @@ export default function FormContainer() {
 
   return (
     <div className="page-container">
-      <h1 className="form-heading">Investment Calculator</h1>
+      <h1 className="form-heading">Ai-Powered Investment Risk & Growth Estimator</h1>
       <div className={`form-container-wrapper ${allFieldsSet ? "filled" : ""}`}>
         <p className="form-description">Your stock journey starts here.</p>
         <div className="form-container">
@@ -21,7 +21,7 @@ export default function FormContainer() {
             isFirst={true}
             state={payment}
             setState={setPayment}
-            text="Investment Amount"
+            text="Ai-Powered Investment Risk & Growth Estimator"
             id="payment"
             defaultText="Enter Investment"
           />

@@ -29,12 +29,17 @@
 }
 
 /* Form heading styling */
+/* Form heading styling with a gradient from blue to black */
 .form-heading {
-  font-size: 2.5rem;
-  color: var(--color-primary);
+  background: linear-gradient(90deg, #3b82f6, #000000); /* Blue to black gradient */
+  -webkit-background-clip: text; /* Ensures the gradient applies to the text */
+  color: transparent; /* Makes the text color transparent so the gradient shows */
+  font-weight: bold; /* Make the text bold for emphasis */
+  font-size: 2.5rem; /* Adjust font size as needed */
+  text-align: center; /* Center the heading */
   margin-bottom: 1rem;
-  text-align: center;
 }
+
 
 /* Form container with border and centered alignment */
 .form-container-wrapper {
