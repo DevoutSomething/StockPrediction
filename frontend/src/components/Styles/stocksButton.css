@@ -1,0 +1,54 @@
+/* General button styling */
+.stocks-button {
+  display: inline-block;
+  padding: 18px 40px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  background-color: #28a745; /* Green color */
+  border-radius: 12px; /* Rounded corners */
+  text-decoration: none;
+  border: 2px solid #28a745;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
+}
+
+/* Button when valid */
+.stocks-button.valid {
+  background-color: #337642; /* Green background */
+  border-color: #337642; /* Green border */
+}
+
+/* Hover effect to enlarge button */
+.stocks-button:hover {
+  transform: scale(1.1); /* Slightly increase size on hover */
+  background-color: #218838; /* Darker green when hovered */
+  border-color: #218838; /* Darker border on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adding a subtle shadow effect */
+}
+
+/* Active button effect */
+.stocks-button:active {
+  background-color: #1e7e34; /* Even darker green when clicked */
+  border-color: #1e7e34;
+}
+
+/* Button when invalid */
+.stocks-button.invalid {
+  background-color: #47b14c; /* Red background when invalid */
+  border-color: #47b14c; /* Red border when invalid */
+}
+
+/* Disabled button (optional for future use) */
+.stocks-button:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Additional focus effect */
+.stocks-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(72, 179, 66, 0.5); /* Green glow on focus */
+}

@@ -1,21 +1,33 @@
-/* General styling for the input group */
-.input-group {
-  position: relative;
-  margin-bottom: 20px;
-  font-family: "Arial", sans-serif;
+/* Add to your timeForm.css */
+
+/* Valid state for the input */
+.input-group input.valid {
+  color: #337642; /* Green text for valid date */
+  border-color: #337642; /* Green border for valid input */
 }
 
-label {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 5px;
-  display: block;
+/* General input field styling */
+.input-group input {
+  width: 100%;
+  padding: 18px;
+  font-size: 18px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  transition: border-color 0.3s, color 0.3s ease;
+}
+
+/* Focus effect for input fields */
+.input-group input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /* Error message styling */
 .error {
-  color: #d9534f; /* Red for errors */
+  color: #d9534f;
   font-size: 12px;
   margin-top: 5px;
   background-color: #f8d7da;
@@ -24,5 +36,5 @@ label {
   border: 1px solid #f5c6cb;
   width: max-content;
   font-weight: bold;
-  margin-bottom: 10px; /* Ensures spacing below the error message */
+  margin-bottom: 10px;
 }

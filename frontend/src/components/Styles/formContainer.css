@@ -1,7 +1,64 @@
+/* General form container styling */
 .form-container {
   display: flex;
   justify-content: center; /* Align input groups horizontally */
-  gap: 20px; /* Space between inputs */
+  gap: 70px; /* Increased space between inputs for a more spacious layout */
   width: 100%;
-  max-width: 800px; /* Limit the form width */
+  max-width: 900px; /* Limit the form width */
+  flex-wrap: wrap; /* Allow inputs to wrap if necessary */
+  padding: 20px; /* Add padding to prevent elements from touching the edges */
+}
+
+/* Input group styling */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px; /* Increased space between form groups */
+  width: 250px; /* Set a specific width for input groups */
+}
+
+/* Label styling */
+.input-group label {
+  font-size: 20px; /* Larger label text */
+  margin-bottom: 15px; /* Increased space below labels */
+  color: #333; /* Darker color for better readability */
+}
+
+/* Input field styling */
+.input-group input {
+  width: 100%; /* Ensure inputs take up the full width of their container */
+  padding: 18px; /* Increased padding for a more comfortable user experience */
+  font-size: 18px; /* Larger text inside the input */
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 20px; /* More space below inputs */
+  transition: border-color 0.3s, color 0.3s ease; /* Smooth transition for input focus effects */
+}
+
+/* Focus effect for input fields */
+.input-group input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus effect for better visibility */
+}
+
+/* Default state for empty inputs */
+.input-group input.empty {
+  color: black;
+  border-color: #ccc;
+}
+
+/* Styling for valid inputs */
+.input-group input.valid {
+  color: #337642; /* Green text for valid inputs */
+  border-color: #337642; /* Green border for valid inputs */
+}
+
+/* Hide spin buttons for number inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

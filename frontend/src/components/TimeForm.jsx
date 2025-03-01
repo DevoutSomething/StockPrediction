@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import "./Styles/timeForm.css";
+
 export default function TimeForm({ state, setState, text, defaultText, id }) {
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
@@ -46,6 +47,9 @@ export default function TimeForm({ state, setState, text, defaultText, id }) {
     };
   }, []);
 
+  // Apply the 'valid' class if a date is selected
+  const inputClass = state ? "valid" : "";
+
   return (
     <div className="input-group">
       <label htmlFor={id}>{text}</label>
@@ -56,6 +60,7 @@ export default function TimeForm({ state, setState, text, defaultText, id }) {
         placeholder={defaultText}
         value={!state ? state : formatDate(state)}
         onFocus={handleInputFocus}
+        className={inputClass} // Apply the 'valid' class if a date is selected
         readOnly
       />
       {error && <div className="error">{error}</div>}
