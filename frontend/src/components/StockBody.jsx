@@ -1,5 +1,6 @@
-import Chart from "./Chart";
-import ChartHeader from "./ChartHeader";
+import "./styles/stockBody.css"
+import Chart from "./Chart"
+import ChartHeader from "./ChartHeader"
 
 export default function StockBody({ dataArr }) {
   return (
@@ -7,5 +8,6 @@ export default function StockBody({ dataArr }) {
       <ChartHeader />
       <Chart dataArr={dataArr} />
     </div>
-  );
+  )
 }
+

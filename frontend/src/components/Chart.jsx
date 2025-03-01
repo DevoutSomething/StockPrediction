@@ -1,4 +1,4 @@
-import "./styles/stocksTable.css"; // Optional: for external styling
+import "./styles/stocksTable.css"
 
 export default function Chart({ dataArr }) {
   return (
@@ -26,5 +26,6 @@ export default function Chart({ dataArr }) {
         </table>
       </div>
     </div>
-  );
+  )
 }
+

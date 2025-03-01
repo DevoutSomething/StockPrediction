@@ -1,18 +1,34 @@
-/* Table specific styles */
+/* Modern Stock Table Styling */
+:root {
+  --primary-color: #2563eb;
+  --background-color: #ffffff;
+  --border-color: #e5e7eb;
+  --hover-color: #f9fafb;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --radius: 8px;
+}
+
+/* Table container */
 .table-container {
   background-color: var(--background-color);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
   width: 100%;
+  max-width: 900px;
   margin: 0 auto;
   overflow-x: auto;
 }
 
+/* Table styling */
 table {
   width: 100%;
   border-collapse: collapse;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   color: var(--text-primary);
 }
 
@@ -42,15 +58,16 @@ tbody tr:hover {
   transition: background-color 0.2s ease;
 }
 
+/* First column (Name) styling */
 tbody tr td:first-child {
   font-weight: 600;
 }
 
-@media (max-width: 768px) {
+/* Responsive adjustments */
+@media (max-width: 640px) {
   th,
   td {
     padding: 12px 8px;
     font-size: 14px;
   }
 }
-
