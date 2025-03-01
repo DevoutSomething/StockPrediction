@@ -1,12 +1,11 @@
 /* Home.css */
-
-/* Set a distinct background color for the entire page */
+/* Container for home page content */
 .home-container {
-  background-color: #e9f1f7; /* Light blue background for the entire page */
-  min-height: 100vh; /* Ensure the page takes full height */
-  font-family: Arial, sans-serif; /* Set a default font */
-  padding: 0; /* Remove default padding */
-  margin: 0; /* Remove default margin */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-start; /* Align children to the top */
+  align-items: center; /* Center all children horizontally */
+  padding-top: 20px; /* Add padding to the top */
 }
 
 /* Style for the body content inside Home */
