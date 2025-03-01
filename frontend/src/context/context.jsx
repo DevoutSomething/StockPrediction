@@ -3,27 +3,21 @@ import { createContext, useState } from "react";
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-  });
-
-  const [blogList, setBlogList] = useState([]);
-  const [pending, setPending] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+  const [payment, setPayment] = useState(0);
+  const [time, setTime] = useState(0);
+  const [profit, setProfit] = useState(0);
   return (
     <GlobalContext.Provider
       value={{
-        blogList,
-        setBlogList,
-        pending,
-        setPending,
-        formData,
-        setFormData,
-        isEdit,
-        setIsEdit,
+        payment,
+        setPayment,
+        time,
+        setTime,
+        profit,
+        setProfit,
       }}
     >
+      {" "}
       {children}
     </GlobalContext.Provider>
   );
