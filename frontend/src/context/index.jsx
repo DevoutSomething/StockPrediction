@@ -17,7 +17,6 @@ export default function GlobalState({ children }) {
         setProfit,
       }}
     >
-      {" "}
       {children}
     </GlobalContext.Provider>
   );
