@@ -19,7 +19,7 @@
 }
 
 .input-group input:focus {
-  border-color: #007bff;
+  border-color: #d3d6db;
   outline: none;
 }
 /* Hide the spin buttons for number inputs */
