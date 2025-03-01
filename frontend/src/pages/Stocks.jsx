@@ -1,19 +1,21 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import Header from "../components/Header";
 import { GlobalContext } from "../context";
 import StockBody from "../components/StockBody";
 import axios from "axios";
+import LoadingSpinner from "../components/LoadingSpinner";
 export default function Stocks() {
   let dataArr = createDefaultData();
   const { payment, time, profit } = useContext(GlobalContext);
-
+  const { loading, setLoading } = useState(false);
   async function handleGetStocks() {
     try {
+      setLoading(true);
       const response = await axios.get("http://localhost:33306/", {
         params: {
-          payment: payment,
-          time: time,
-          profit: profit,
+          investment_amount: payment,
+          time_horizon: time,
+          expected_return: profit,
         },
       });
       const result = await response.data;
@@ -26,6 +28,8 @@ export default function Stocks() {
     } catch (e) {
       console.log("data not fetched " + e);
       dataArr = createDefaultData();
+    } finally {
+      setLoading(false);
     }
   }
   useEffect(() => {
@@ -36,6 +40,7 @@ export default function Stocks() {
     <div className="stocks-main">
       <Header backButton={true} />
       <StockBody dataArr={dataArr} />
+      {loading && <LoadingSpinner />}
     </div>
   );
 }
