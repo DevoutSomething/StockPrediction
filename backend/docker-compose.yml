@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - DB_USER=root
+      - DB_PASSWORD=stockbros
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=stock_prediction
+      - API_DEBUG=1
+      - API_RELOAD=0
+      - NEWS_API_KEY=${NEWS_API_KEY}
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - stock-network
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init-db:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=stockbros
+      - MYSQL_DATABASE=stock_prediction
+    restart: unless-stopped
+    networks:
+      - stock-network
+    command: --default-authentication-plugin=mysql_native_password
+
+  ml-trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -c "from tf_train import train_rl_agent; train_rl_agent(symbol='AAPL', algorithm='PPO', episodes=50)"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - DB_USER=root
+      - DB_PASSWORD=stockbros
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=stock_prediction
+      - USE_MOCK_DATA=0
+    depends_on:
+      - db
+    networks:
+      - stock-network
+
+networks:
+  stock-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

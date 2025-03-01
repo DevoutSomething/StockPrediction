@@ -33,6 +33,28 @@ def get_mock_data(symbol, period="1y"):
     mock_df = pd.DataFrame(MOCK_STOCK_DATA, index=dates)
     return mock_df
 
+def get_stock_data(symbol: str, period: str = "1y", start: str = None, end: str = None) -> pd.DataFrame:
+    """Helper function to get stock data with rate limit handling"""
+    # Add random delay between 1-3 seconds to avoid hitting rate limits
+    time.sleep(random.uniform(1, 3))
+    
+    try:
+        # Use either period or start/end dates
+        if start and end:
+            data = yf.download(symbol, start=start, end=end, progress=False)
+        else:
+            data = yf.download(symbol, period=period, progress=False)
+
+        if data is None or data.empty:
+            print(f"No data received for {symbol}, falling back to mock data")
+            return get_mock_data(symbol, period)
+            
+        return data
+        
+    except Exception as e:
+        print(f"Error fetching data for {symbol}: {str(e)}")
+        return get_mock_data(symbol, period)
+
 class StockTradingEnvironment:
     """
     A custom environment for stock trading using reinforcement learning
@@ -101,6 +123,10 @@ class StockTradingEnvironment:
         # Get current stock price
         current_price = self.stock_data['Close'].iloc[self.current_step]
         
+        # Ensure price is not zero to avoid division by zero
+        if current_price <= 0:
+            current_price = 0.01  # Use a small positive value instead of zero
+        
         # Initialize reward
         reward = 0
         done = False
@@ -128,30 +154,39 @@ class StockTradingEnvironment:
         
         elif action == 2:  # Buy
             if self.balance > 0:
-                # Calculate the maximum shares we can buy
-                max_shares = self.balance / (current_price * (1 + self.transaction_fee_percent))
+                # Calculate the maximum shares we can buy (with safety check)
+                # Ensure we don't get division by zero or very small values
+                denominator = current_price * (1 + self.transaction_fee_percent)
+                if denominator < 0.01:
+                    denominator = 0.01  # Avoid division by very small numbers
+                    
+                max_shares = self.balance / denominator
                 
+                # Add safety check to prevent overflow
+                if max_shares > 1e9:  # Cap at a billion shares
+                    max_shares = 1e9
+                    
                 # Implement a slightly more complex buying strategy: use 90% of available balance
                 shares_to_buy = int(max_shares * 0.9)
                 
-                if shares_to_buy > 0:
-                    # Calculate purchase amount and transaction fee
-                    purchase_amount = shares_to_buy * current_price
-                    transaction_fee = purchase_amount * self.transaction_fee_percent
-                    
-                    # Update balance and shares
-                    self.balance -= (purchase_amount + transaction_fee)
-                    self.shares_held += shares_to_buy
-                    
-                    # Log the action
-                    self.history.append({
-                        'step': self.current_step,
-                        'action': 'buy',
-                        'price': current_price,
-                        'shares': shares_to_buy,
-                        'balance': self.balance,
-                        'portfolio_value': self.portfolio_value
-                    })
+                # Ensure we buy at least 1 share if possible
+                shares_to_buy = max(1, shares_to_buy) if self.balance >= current_price else 0
+                
+                # Update shares and balance
+                cost = shares_to_buy * current_price
+                transaction_fee = cost * self.transaction_fee_percent
+                self.shares_held += shares_to_buy
+                self.balance -= (cost + transaction_fee)
+                
+                # Log the action
+                self.history.append({
+                    'step': self.current_step,
+                    'action': 'buy',
+                    'price': current_price,
+                    'shares': shares_to_buy,
+                    'balance': self.balance,
+                    'portfolio_value': self.portfolio_value
+                })
         
         # Hold action doesn't require any portfolio changes
         
@@ -211,7 +246,8 @@ class DQNAgent:
     def _build_model(self):
         """Build a neural network model for deep Q-learning"""
         model = Sequential()
-        model.add(Dense(64, input_dim=self.state_dim, activation='relu'))
+        model.add(Input(shape=(self.state_dim,)))  # Use Input layer for the input shape
+        model.add(Dense(64, activation='relu'))
         model.add(Dense(64, activation='relu'))
         model.add(Dense(32, activation='relu'))
         model.add(Dense(self.action_dim, activation='linear'))
@@ -279,6 +315,13 @@ class DQNAgent:
         
     def save(self, name):
         """Save model to file"""
+        # Ensure filename has the correct extension for Keras 3 compatibility
+        if not name.endswith('.weights.h5'):
+            # Remove .h5 extension if it exists
+            if name.endswith('.h5'):
+                name = name[:-3]
+            # Add the correct extension
+            name = name + '.weights.h5'
         self.model.save_weights(name)
 
 class PPOAgent:
@@ -449,6 +492,22 @@ class PPOAgent:
         
     def save(self, actor_path, critic_path):
         """Save actor and critic models"""
+        # Ensure actor filename has the correct extension
+        if not actor_path.endswith('.weights.h5'):
+            # Remove .h5 extension if it exists
+            if actor_path.endswith('.h5'):
+                actor_path = actor_path[:-3]
+            # Add the correct extension
+            actor_path = actor_path + '.weights.h5'
+        
+        # Ensure critic filename has the correct extension
+        if not critic_path.endswith('.weights.h5'):
+            # Remove .h5 extension if it exists
+            if critic_path.endswith('.h5'):
+                critic_path = critic_path[:-3]
+            # Add the correct extension
+            critic_path = critic_path + '.weights.h5'
+        
         self.actor.save_weights(actor_path)
         self.critic.save_weights(critic_path)
         
@@ -458,119 +517,137 @@ class PPOAgent:
         self.critic.load_weights(critic_path)
 
 class StockDataPreprocessor:
-    """
-    Preprocesses stock data for reinforcement learning
-    """
     def __init__(self):
-        self.scalers = {}
+        self.scaler = MinMaxScaler()
         
-    def add_technical_indicators(self, data: pd.DataFrame) -> pd.DataFrame:
-        """Add technical indicators to the stock data"""
-        df = data.copy()
+    def prepare_data(self, symbol: str, period: str = "1y", use_mock: bool = False) -> Tuple[pd.DataFrame, pd.DataFrame]:
+        """Prepare stock data for training"""
+        max_retries = 3
+        retry_delay = 5  # Increased delay between retries
         
-        # Moving Averages
-        df['MA5'] = df['Close'].rolling(window=5).mean()
-        df['MA20'] = df['Close'].rolling(window=20).mean()
-        df['MA50'] = df['Close'].rolling(window=50).mean()
-        
-        # Exponential Moving Averages
-        df['EMA5'] = df['Close'].ewm(span=5, adjust=False).mean()
-        df['EMA20'] = df['Close'].ewm(span=20, adjust=False).mean()
-        
-        # MACD
-        df['EMA12'] = df['Close'].ewm(span=12, adjust=False).mean()
-        df['EMA26'] = df['Close'].ewm(span=26, adjust=False).mean()
-        df['MACD'] = df['EMA12'] - df['EMA26']
-        df['MACD_Signal'] = df['MACD'].ewm(span=9, adjust=False).mean()
-        
-        # Bollinger Bands
-        df['MA20_std'] = df['Close'].rolling(window=20).std()
-        df['Upper_BB'] = df['MA20'] + (df['MA20_std'] * 2)
-        df['Lower_BB'] = df['MA20'] - (df['MA20_std'] * 2)
-        
-        # Relative Strength Index (RSI)
-        delta = df['Close'].diff()
-        gain = delta.where(delta > 0, 0).rolling(window=14).mean()
-        loss = -delta.where(delta < 0, 0).rolling(window=14).mean()
-        rs = gain / loss
-        df['RSI'] = 100 - (100 / (1 + rs))
-        
-        # Average True Range (ATR)
-        df['TR'] = np.maximum(
-            df['High'] - df['Low'],
-            np.maximum(
-                abs(df['High'] - df['Close'].shift()),
-                abs(df['Low'] - df['Close'].shift())
-            )
-        )
-        df['ATR'] = df['TR'].rolling(window=14).mean()
-        
-        # Volume indicators
-        df['Volume_Change'] = df['Volume'].pct_change()
-        df['Volume_MA5'] = df['Volume'].rolling(window=5).mean()
-        
-        # Price momentum
-        df['Price_Change'] = df['Close'].pct_change()
-        df['Price_Change_5d'] = df['Close'].pct_change(periods=5)
-        
-        # Drop NaN values resulting from indicators calculations
-        df = df.dropna()
-        
-        return df
-    
-    def normalize_data(self, data: pd.DataFrame, is_training: bool = True) -> pd.DataFrame:
-        """Normalize the data using Min-Max Scaling"""
-        df = data.copy()
-        
-        if is_training:
-            # Create a new scaler for each column during training
-            for column in df.columns:
-                self.scalers[column] = MinMaxScaler()
-                df[column] = self.scalers[column].fit_transform(df[[column]])
-        else:
-            # Use existing scalers during testing/inference
-            for column in df.columns:
-                if column in self.scalers:
-                    df[column] = self.scalers[column].transform(df[[column]])
+        for attempt in range(max_retries):
+            try:
+                # Get data
+                if use_mock or os.environ.get("USE_MOCK_DATA") == "1":
+                    data = get_mock_data(symbol, period)
+                    print(f"Using mock data for {symbol}")
                 else:
-                    print(f"Warning: No scaler found for column {column}")
-                    
-        return df
-    
-    def prepare_data(self, symbol: str, period: str = "5y", is_training: bool = True) -> pd.DataFrame:
-        """Prepare stock data for RL environment"""
-        # Check if we should use mock data for testing
-        use_mock = os.environ.get("USE_MOCK_DATA") == "1"
-        
-        if use_mock:
-            stock_data = get_mock_data(symbol, period)
-        else:
-            # Try to fetch data with retries
-            max_retries = 3
-            for attempt in range(max_retries):
-                try:
-                    stock_data = yf.download(symbol, period=period)
-                    if not stock_data.empty:
-                        break
-                    time.sleep(1)  # Wait before retry
-                except Exception as e:
-                    print(f"Attempt {attempt+1}/{max_retries} failed: {e}")
-                    if attempt == max_retries - 1:
-                        # On last attempt, use mock data instead of failing
-                        print(f"Using mock data for {symbol} after failed attempts")
-                        stock_data = get_mock_data(symbol, period)
-                    else:
-                        time.sleep(2)  # Wait longer before next retry
-        
-        # Add technical indicators
-        stock_data_with_indicators = self.add_technical_indicators(stock_data)
-        
-        # Normalize the data
-        normalized_data = self.normalize_data(stock_data_with_indicators, is_training)
-        
-        return normalized_data, stock_data
+                    # Add retry mechanism for yfinance with exponential backoff
+                    try:
+                        # Add delay between requests to avoid rate limiting
+                        if attempt > 0:
+                            wait_time = retry_delay * (2 ** attempt)
+                            print(f"Waiting {wait_time} seconds before retry...")
+                            time.sleep(wait_time)
+                        
+                        data = get_stock_data(symbol, period)
+                        
+                    except Exception as e:
+                        if attempt == max_retries - 1:
+                            print(f"All attempts failed, falling back to mock data for {symbol}")
+                            data = get_mock_data(symbol, period)
+                        else:
+                            print(f"Attempt {attempt + 1} failed: {str(e)}")
+                            continue
 
-def train_rl_agent(symbol: str = "AAPL", algorithm: str = "PPO", episodes: int = 50):
+                # Process the data (rest of the method remains the same)
+                if data.empty:
+                    raise ValueError(f"Empty dataset received for {symbol}")
+                
+                if len(data) < 2:
+                    raise ValueError(f"Insufficient data points for {symbol} (got {len(data)})")
+                    
+                # Ensure we have the required columns
+                required_columns = ['Open', 'High', 'Low', 'Close', 'Volume']
+                missing_columns = [col for col in required_columns if col not in data.columns]
+                if missing_columns:
+                    raise ValueError(f"Missing required columns for {symbol}: {missing_columns}")
+                
+                # Add technical indicators with safety checks
+                data = self.add_technical_indicators(data)
+                
+                # Handle any NaN values
+                data = data.ffill().bfill()
+                if data.isnull().any().any():
+                    print(f"Warning: NaN values found in {symbol} data after forward/backward fill")
+                    data = data.dropna()
+                
+                if len(data) < 30:  # Minimum required length
+                    raise ValueError(f"Insufficient data points after preprocessing for {symbol} (got {len(data)}, need at least 30)")
+                
+                # Normalize the data
+                normalized_data = self.normalize_data(data)
+                
+                return normalized_data, data
+                
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    print(f"Attempt {attempt + 1}/{max_retries} failed: {str(e)}")
+                    time.sleep(retry_delay)
+                else:
+                    print(f"All attempts failed for {symbol}: {str(e)}")
+                    raise ValueError(f"Could not prepare data for {symbol} after {max_retries} attempts: {str(e)}")
+            
+    def add_technical_indicators(self, data: pd.DataFrame) -> pd.DataFrame:
+        """Add technical indicators safely"""
+        try:
+            df = data.copy()
+            
+            # Ensure we have enough data points
+            min_periods = 5
+            if len(df) < min_periods:
+                raise ValueError("Not enough data points for technical indicators")
+                
+            # Moving averages
+            df['MA5'] = df['Close'].rolling(window=5, min_periods=min_periods).mean()
+            df['MA20'] = df['Close'].rolling(window=20, min_periods=min_periods).mean()
+            
+            # RSI with safety checks
+            delta = df['Close'].diff()
+            gain = (delta.where(delta > 0, 0)).rolling(window=14, min_periods=min_periods).mean()
+            loss = (-delta.where(delta < 0, 0)).rolling(window=14, min_periods=min_periods).mean()
+            
+            # Avoid division by zero
+            rs = gain / loss.replace(0, float('nan'))
+            df['RSI'] = 100 - (100 / (1 + rs))
+            
+            return df
+            
+        except Exception as e:
+            print(f"Error in add_technical_indicators: {str(e)}")
+            raise
+            
+    def normalize_data(self, data: pd.DataFrame) -> pd.DataFrame:
+        """Normalize the data safely"""
+        try:
+            # Select features for normalization
+            features = ['Open', 'High', 'Low', 'Close', 'Volume', 'MA5', 'MA20', 'RSI']
+            
+            # Create a copy of the data
+            normalized = data[features].copy()
+            
+            # Handle Volume separately (log transformation)
+            normalized['Volume'] = np.log1p(normalized['Volume'])
+            
+            # Normalize each feature
+            for feature in features:
+                if feature != 'Volume':  # Volume already transformed
+                    feature_data = normalized[feature].values.reshape(-1, 1)
+                    normalized[feature] = self.scaler.fit_transform(feature_data)
+                    
+            return normalized
+            
+        except Exception as e:
+            print(f"Error in normalize_data: {str(e)}")
+            raise
+
+def train_rl_agent(
+    symbol: str = "AAPL", 
+    algorithm: str = "PPO", 
+    episodes: int = 50,
+    initial_balance: float = 10000.0,  # Add this parameter
+    period: str = "5y"  # Add this parameter
+):
     """
     Train an RL agent on stock trading
     
@@ -578,13 +655,24 @@ def train_rl_agent(symbol: str = "AAPL", algorithm: str = "PPO", episodes: int =
         symbol: Stock symbol to train on
         algorithm: RL algorithm to use ('DQN' or 'PPO')
         episodes: Number of training episodes
+        initial_balance: Starting balance for trading
+        period: Data period to train on
     """
     # Preprocess data
     preprocessor = StockDataPreprocessor()
-    normalized_data, original_data = preprocessor.prepare_data(symbol, period="5y")
+    try:
+        normalized_data, original_data = preprocessor.prepare_data(symbol, period=period)
+    except Exception as e:
+        print(f"Error preparing data: {str(e)}")
+        # Fall back to mock data if real data fails
+        normalized_data, original_data = preprocessor.prepare_data(symbol, period=period, use_mock=True)
     
-    # Create environment
-    env = StockTradingEnvironment(normalized_data)
+    # Create environment with specified initial balance
+    env = StockTradingEnvironment(
+        normalized_data, 
+        initial_balance=initial_balance,
+        max_steps=len(normalized_data)-1
+    )
     
     # Set up agent based on algorithm
     if algorithm == "DQN":
@@ -696,7 +784,7 @@ def evaluate_agent(agent, symbol: str, algorithm: str, preprocessor: StockDataPr
     if end_date is None:
         end_date = datetime.datetime.now().strftime('%Y-%m-%d')
     
-    stock_data = yf.download(symbol, start=start_date, end=end_date)
+    stock_data = get_stock_data(symbol, start=start_date, end=end_date)
     
     # Skip if no data
     if stock_data.empty:
@@ -819,7 +907,9 @@ def multi_stock_portfolio_optimization(symbols: List[str],
         agent, preprocessor, rewards, values = train_rl_agent(
             symbol=symbol, 
             algorithm=algorithm, 
-            episodes=50  # Can be adjusted based on complexity
+            episodes=50,  # Can be adjusted based on complexity
+            initial_balance=10000.0,  # Add this parameter
+            period="5y"  # Add this parameter
         )
         
         agents[symbol] = agent

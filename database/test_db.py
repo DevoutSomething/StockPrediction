@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 print("🚀 Starting database connection test...")
 
 # Update this with your actual database details
-DATABASE_URL = "mysql+mysqlconnector://root:stockbros@localhost:3306/stock_prediction"
+DATABASE_URL = "mysql+mysqlconnector://root:171205@Kunj@localhost:3306/stock_prediction"
 
 print(f"🔗 Connecting to database: {DATABASE_URL}")
 
