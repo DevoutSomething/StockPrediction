@@ -18,3 +18,7 @@ header,
   position: relative;
   z-index: 1;
 }
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}

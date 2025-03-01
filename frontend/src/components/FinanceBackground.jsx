@@ -8,10 +8,10 @@ const SwirlAnimation = () => {
     // Set up the scene, camera, and renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      75,
+      60,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      800
     );
     camera.position.z = 50; // Position the camera away from the center
 
@@ -21,15 +21,15 @@ const SwirlAnimation = () => {
 
     mountRef.current.appendChild(renderer.domElement);
 
-    const particleCount = 5000;
+    const particleCount = 3000;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 100; // X
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 100; // Y
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 100; // Z
+      positions[i * 3] = (Math.random() - 0.7) * 100; // X
+      positions[i * 3 + 1] = (Math.random() - 0.7) * 100; // Y
+      positions[i * 3 + 2] = (Math.random() - 0.7) * 100; // Z
 
       if (i % 2 === 0) {
         // Pink
@@ -70,11 +70,11 @@ const SwirlAnimation = () => {
         const z = positions[i * 3 + 2];
 
         positions[i * 3] +=
-          Math.sin(y * 0.003 + time) * 0.01 + (Math.random() - 0.5) * 0.005; // Slower X
+          Math.sin(y * 0.003 + time) * 0.01 + (Math.random() - 0.7) * 0.006; // Slower X
         positions[i * 3 + 1] +=
-          Math.cos(x * 0.003 + time) * 0.01 + (Math.random() - 0.5) * 0.005; // Slower Y
+          Math.cos(x * 0.003 + time) * 0.01 + (Math.random() - 0.7) * 0.007; // Slower Y
         positions[i * 3 + 2] +=
-          Math.sin(z * 0.003 + time) * 0.01 + (Math.random() - 0.5) * 0.005; // Slower Z
+          Math.sin(z * 0.003 + time) * 0.01 + (Math.random() - 0.7) * 0.006; // Slower Z
       }
       geometry.attributes.position.needsUpdate = true; // Update position data
 

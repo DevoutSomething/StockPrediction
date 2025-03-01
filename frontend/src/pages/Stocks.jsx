@@ -1,4 +1,5 @@
 import { useEffect, useContext, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import { GlobalContext } from "../context";
 import StockBody from "../components/StockBody";
@@ -6,10 +7,22 @@ import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
 import FinanceBackground from "../components/FinanceBackground";
 import "../components/Styles/stocks.css";
+
 export default function Stocks() {
   let dataArr = createDefaultData();
   const { payment, time, profit } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/stocks") {
+      document.body.classList.add("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [location]);
 
   async function handleGetStocks() {
     try {
