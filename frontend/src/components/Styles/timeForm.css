@@ -1,17 +1,12 @@
-/* Add to your timeForm.css */
-
-/* Valid state for the input */
 .input-group input.valid {
-  color: #2be253; /* Green text for valid date */
-  border-color: #2be253; /* Green border for valid input */
+  color: #2be253;
+  border-color: #2be253;
 }
 
-/* Valid state for the label */
 .input-group label.valid {
-  color: #e8ebe9; /* Green text for label when input is valid */
+  color: #e8ebe9;
 }
 
-/* General input field styling */
 .input-group input {
   width: 100%;
   padding: 18px;
@@ -23,14 +18,12 @@
   transition: border-color 0.3s, color 0.3s ease;
 }
 
-/* Focus effect for input fields */
 .input-group input:focus {
   border-color: #007bff;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Error message styling */
 .error {
   color: #d9534f;
   font-size: 12px;

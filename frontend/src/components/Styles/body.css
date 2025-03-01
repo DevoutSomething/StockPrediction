@@ -115,7 +115,6 @@ body {
   line-height: 1.6;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .body-container {
     padding-top: 140px;

@@ -27,31 +27,26 @@ const RollingHills = () => {
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
-    // Create a wave geometry in 3D (X, Y, Z)
     const waveGeometry = new THREE.BufferGeometry();
     const vertices = [];
     const colors = [];
-    const amplitude = 2; // Height of the wave
-    const frequency = 0.5; // Frequency of the wave
-    const segments = 200; // Number of segments in the wave
-    const depth = 200; // Depth of the wave (Z direction)
+    const amplitude = 2;
+    const frequency = 0.5;
+    const segments = 200;
+    const depth = 200;
 
     for (let i = 0; i <= segments; i++) {
       for (let j = 0; j <= depth; j++) {
-        const x = (i / segments) * 20 - 10; // Spread the wave along the X-axis
-        const z = (j / depth) * 20 - 10; // Spread the wave along the Z-axis
-        const y = Math.sin(Math.sqrt(x * x + z * z) * frequency) * amplitude; // 3D sine wave
+        const x = (i / segments) * 20 - 10;
+        const z = (j / depth) * 20 - 10;
+        const y = Math.sin(Math.sqrt(x * x + z * z) * frequency) * amplitude;
 
-        vertices.push(x, y - 2, z); // Move the wave down by subtracting 2 from the y-axis
-
-        // Add colors (blue to green gradient)
+        vertices.push(x, y - 2, z);
         const color = new THREE.Color();
-        color.setHSL(0.5 + (i / segments) * 0.3, 1, 0.5); // Hue from 0.5 (blue) to 0.8 (green)
-        colors.push(color.r, color.g, color.b);
+        color.setHSL(0.5 + (i / segments) * 0.3, 1, 0.5);
       }
     }
 
-    // Set the vertices and colors in the geometry
     waveGeometry.setAttribute(
       "position",
       new THREE.Float32BufferAttribute(vertices, 3)
@@ -61,18 +56,14 @@ const RollingHills = () => {
       new THREE.Float32BufferAttribute(colors, 3)
     );
 
-    // Create a material with vertex colors
     const waveMaterial = new THREE.LineBasicMaterial({ vertexColors: true });
 
-    // Create the wave mesh
     const waveMesh = new THREE.LineSegments(waveGeometry, waveMaterial);
     scene.add(waveMesh);
 
-    // Animation loop
     const animate = () => {
       requestAnimationFrame(animate);
 
-      // Update wave vertices for animation (roll effect in X and Z)
       const positions = waveGeometry.attributes.position.array;
       const time = Date.now() * 0.0001; // Slow down the wave movement by adjusting the multiplier
       for (let i = 0; i <= segments; i++) {
@@ -80,7 +71,6 @@ const RollingHills = () => {
           const x = (i / segments) * 20 - 10;
           const z = (j / depth) * 20 - 10;
 
-          // Add rolling effect by modifying X and Z over time
           positions[(i * (depth + 1) + j) * 3 + 1] =
             Math.sin(
               Math.sqrt((x + time) * (x + time) + (z + time) * (z + time)) *
@@ -99,7 +89,6 @@ const RollingHills = () => {
 
     animate();
 
-    // Handle window resize
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -119,12 +108,12 @@ const RollingHills = () => {
   return (
     <div
       style={{
-        position: "fixed", // Make the background fixed
+        position: "fixed",
         top: 0,
         left: 0,
-        width: "100%", // Cover the entire width
-        height: "100%", // Cover the entire height
-        zIndex: -1, // Ensure it stays in the background
+        width: "100%",
+        height: "100%",
+        zIndex: -1,
       }}
       ref={mountRef}
     />

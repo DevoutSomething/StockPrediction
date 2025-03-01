@@ -9,12 +9,13 @@ export default function FormContainer() {
   const { payment, setPayment, time, setTime, profit, setProfit } =
     useContext(GlobalContext);
 
-  // Check if all fields are set
   const allFieldsSet = payment && time && profit;
 
   return (
     <div className="page-container">
-      <h1 className="form-heading">Ai-Powered Investment Risk & Growth Estimator</h1>
+      <h1 className="form-heading">
+        Ai-Powered Investment Risk & Growth Estimator
+      </h1>
       <div className={`form-container-wrapper ${allFieldsSet ? "filled" : ""}`}>
         <div className="gradient-border-wrap">
           <div className="gradient-border-content">

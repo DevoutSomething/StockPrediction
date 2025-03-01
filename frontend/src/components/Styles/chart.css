@@ -94,7 +94,6 @@ th button:hover {
   color: #4d94ff;
 }
 
-/* Responsive adjustments */
 @media (max-width: 640px) {
   th,
   td {
@@ -116,13 +115,13 @@ th button:hover {
 }
 
 a {
-  color: white; /* White text */
-  text-decoration: none; /* Removes the underline */
-  transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth transition for hover effect */
-  opacity: 0.9; /* Slight transparency for natural look */
+  color: white;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.9;
 }
 
 a:hover {
-  transform: scale(1.05); /* Slight growth effect on hover */
-  opacity: 1; /* Full opacity on hover */
+  transform: scale(1.05);
+  opacity: 1;
 }

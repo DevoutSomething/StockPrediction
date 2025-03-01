@@ -47,9 +47,8 @@ export default function TimeForm({ state, setState, text, defaultText, id }) {
     };
   }, []);
 
-  // Apply the 'valid' class if a date is selected
   const inputClass = state ? "valid" : "";
-  const labelClass = state ? "valid" : ""; // Apply 'valid' class to label too
+  const labelClass = state ? "valid" : "";
 
   return (
     <div className="input-group">
@@ -63,7 +62,7 @@ export default function TimeForm({ state, setState, text, defaultText, id }) {
         placeholder={defaultText}
         value={!state ? state : formatDate(state)}
         onFocus={handleInputFocus}
-        className={inputClass} // Apply the 'valid' class if a date is selected
+        className={inputClass}
         readOnly
       />
       {error && <div className="error">{error}</div>}

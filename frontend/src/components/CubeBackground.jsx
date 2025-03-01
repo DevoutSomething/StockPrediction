@@ -5,7 +5,6 @@ const RotatingCube = () => {
   const mountRef = useRef(null);
 
   useEffect(() => {
-    // Set up the scene, camera, and renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -13,26 +12,24 @@ const RotatingCube = () => {
       0.1,
       1000
     );
-    camera.position.set(10, 10, 10); // Position the camera to view the cube from a corner
+    camera.position.set(10, 10, 10);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0); // Transparent background
+    renderer.setClearColor(0x000000, 0);
     mountRef.current.appendChild(renderer.domElement);
 
-    // Create the cube
-    const size = 10; // Size of the cube (large enough to take up most of the screen)
+    const size = 10;
     const geometry = new THREE.BoxGeometry(size, size, size);
 
-    // Create a gradient material with pastel colors
     const colors = [
       new THREE.Color(0xa3d8f4), // Pastel blue
       new THREE.Color(0xf4a3d8), // Pastel pink
     ];
     const vertexColors = [];
     for (let i = 0; i < 36; i++) {
-      const color = colors[Math.floor(i / 6) % 2]; // Alternate between pastel blue and pastel pink
+      const color = colors[Math.floor(i / 6) % 2];
       vertexColors.push(color.r, color.g, color.b);
     }
     const material = new THREE.MeshPhongMaterial({
@@ -48,7 +45,6 @@ const RotatingCube = () => {
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
-    // Position the cube on its corner
     cube.rotation.x = Math.PI / 4; // Rotate 45 degrees around the X-axis
     cube.rotation.y = Math.PI / 4; // Rotate 45 degrees around the Y-axis
 
@@ -60,7 +56,6 @@ const RotatingCube = () => {
     const animate = () => {
       requestAnimationFrame(animate);
 
-      // Rotate the cube only along the X-axis (very slow rotation)
       cube.rotation.x += 0.005; // Very slow rotation along the X-axis
 
       renderer.render(scene, camera);
@@ -68,7 +63,6 @@ const RotatingCube = () => {
 
     animate();
 
-    // Handle window resize
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -76,7 +70,6 @@ const RotatingCube = () => {
     };
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       if (mountRef.current) {
         window.removeEventListener("resize", handleResize);

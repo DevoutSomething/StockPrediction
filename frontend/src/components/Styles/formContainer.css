@@ -11,7 +11,8 @@
   --color-border-focus: #3b82f6;
   --border-radius: 12px;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -107,7 +108,8 @@
 
 .form-container-wrapper:hover .gradient-border-wrap {
   animation: gradientBorder 3s ease infinite; /* Speed up animation on hover */
-  box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.05);
 }
 
 /* General form container styling */
@@ -145,7 +147,8 @@
   background-color: var(--color-background);
   color: var(--color-text);
   box-sizing: border-box;
-  transition: border-color var(--transition), box-shadow var(--transition), background-color var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition),
+    background-color var(--transition);
 }
 
 /* Focus effect for input fields */
@@ -162,7 +165,6 @@
   border-color: var(--color-border);
 }
 
-/* Hide spin buttons for number inputs */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -192,10 +194,8 @@ input[type="number"] {
   transition: color var(--transition);
 }
 
-/* Enhanced styling for when all fields are filled */
 .form-container-wrapper.filled .gradient-border-wrap {
   background: linear-gradient(90deg, #051e46, #3eeeb4, #3b82f6);
   background-size: 300% 100%;
   animation: gradientBorder 4s ease infinite;
 }
-

@@ -10,7 +10,7 @@
 }
 
 .input-group input {
-  width: 200px; /* Width of each input */
+  width: 200px;
   padding: 15px;
   font-size: 16px;
   border: 2px solid #ccc;
@@ -22,7 +22,6 @@
   border-color: #d3d6db;
   outline: none;
 }
-/* Hide the spin buttons for number inputs */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;

@@ -1,20 +1,20 @@
 .stocks-main {
-  position: relative; /* Ensure the child elements can be positioned inside */
-  min-height: 100vh; /* Make sure the container takes the full height of the screen */
-  overflow: hidden; /* Hide anything going outside the viewport */
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 .background-container {
-  position: absolute; /* Position the swirl animation behind */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Make sure it stays behind the content */
+  z-index: -1;
 }
 
 header,
 .stock-body {
   position: relative;
-  z-index: 1; /* Bring the page content in front of the background */
+  z-index: 1;
 }

@@ -55,7 +55,6 @@ tbody tr td:first-child {
   }
 }
 
-/* Style the buttons to look like text */
 button {
   background: none;
   border: none;
@@ -67,8 +66,7 @@ button {
   font-family: Arial, sans-serif;
 }
 
-/* Button hover effect: grow a little */
 button:hover {
-  transform: scale(1.1); /* Slightly enlarges the button */
-  transition: transform 0.2s ease-in-out; /* Smooth transition */
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
 }

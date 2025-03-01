@@ -1,5 +1,5 @@
-import Logo from "./Logo"
-import "./Styles/Header.css"
+import Logo from "./Logo";
+import "./Styles/Header.css";
 
 const Header = ({ backButton = false }) => {
   return (
@@ -7,7 +7,11 @@ const Header = ({ backButton = false }) => {
       <div className="header-content">
         {backButton && (
           <div className="back-button-container">
-            <Logo logoSrc="/images/retry.png" className="back" route="/params" />
+            <Logo
+              logoSrc="/images/retry.png"
+              className="back"
+              route="/params"
+            />
           </div>
         )}
 
@@ -15,15 +19,13 @@ const Header = ({ backButton = false }) => {
           <Logo className="logo" route="/" />
         </div>
 
-        {/* Moved market indicator to the right */}
         <div className="market-indicator">
           <span className="indicator up"></span>
           <span className="indicator down"></span>
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
-
+export default Header;

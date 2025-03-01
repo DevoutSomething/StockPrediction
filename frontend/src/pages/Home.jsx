@@ -2,13 +2,13 @@ import React from "react";
 import Header from "../components/Header";
 import Body from "../components/Body";
 import ParamsButton from "../components/ParamsBtn";
-import RollingHills from "../components/RollingHills"; // Import the updated Three.js component
+import RollingHills from "../components/RollingHills";
 import "../components/Styles/body.css";
 
 export default function Home() {
   return (
     <div className="home-container">
-      <RollingHills /> {/* Add the 3D rolling hills background */}
+      <RollingHills />
       <Header />
       <Body />
       <ParamsButton route="/params" />

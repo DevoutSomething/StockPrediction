@@ -94,7 +94,6 @@
   }
 }
 
-/* Placeholder to maintain layout */
 .placeholder {
   width: 38px;
   visibility: hidden;
@@ -102,7 +101,7 @@
 
 .back-button-container {
   position: absolute;
-  right: -150px; /* Adjust spacing from the right */
+  right: -150px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -123,7 +122,6 @@
   background: rgba(37, 99, 235, 0.1);
 }
 
-/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0f172a;
@@ -145,7 +143,6 @@
   }
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .header {
     height: 62px;
@@ -198,7 +195,6 @@
   }
 }
 
-/* Smooth appearance animation */
 @keyframes headerAppear {
   from {
     opacity: 0;

@@ -42,12 +42,10 @@ export default function Stocks() {
 
   return (
     <div className="stocks-main">
-      {/* SwirlAnimation as background */}
       <div className="background-container">
         <FinanceBackground />
       </div>
 
-      {/* Page content */}
       <Header backButton={true} />
       {!loading && <StockBody dataArr={dataArr} />}
       {loading && <LoadingSpinner />}

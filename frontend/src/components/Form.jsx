@@ -29,11 +29,11 @@ export default function Form({
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}`;
-        setState(numericValue.toString()); // Update parent state with numeric value
-        setRawValue(formattedValue); // Update local state with formatted value
+        setState(numericValue.toString());
+        setRawValue(formattedValue);
       }
     } else {
-      setState(rawValue); // Update parent state with raw value
+      setState(rawValue);
     }
   };
 
@@ -65,7 +65,7 @@ export default function Form({
       </label>
       <input
         ref={firstFormElementRef}
-        type="text" // Use "text" type to allow flexible input
+        type="text"
         id={id}
         name={id}
         placeholder={defaultText}
@@ -73,7 +73,7 @@ export default function Form({
         onChange={handleInputChange}
         onBlur={handleBlur}
         onFocus={handleFocus}
-        onKeyDown={handleKeyDown} // Add keydown handler
+        onKeyDown={handleKeyDown}
         className={inputClass}
       />
     </div>
