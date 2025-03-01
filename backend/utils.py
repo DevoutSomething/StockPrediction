@@ -13,17 +13,8 @@ from sklearn.ensemble import RandomForestRegressor
 import os
 import time
 from functools import wraps
+from database.db_connection import Base, engine, SessionLocal, get_db
 
-# Database setup
-# Use SQLite for testing or when MySQL is not available
-if os.environ.get("TESTING") or not os.path.exists("/usr/local/lib/libmysqlclient.dylib"):
-    DATABASE_URL = "sqlite:///./test.db"
-else:
-    DATABASE_URL = "mysql+mysqlconnector://myuser:mypassword@localhost/stock_prediction"
-
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
-Base = declarative_base()
 
 # Database models
 class Stock(Base):

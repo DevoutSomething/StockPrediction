@@ -12,7 +12,8 @@ from unittest.mock import patch, MagicMock
 
 
 # Set environment variables for testing
-os.environ["USE_MOCK_DATA"] = "1"
+os.environ["TESTING"] = "1"
+os.environ["DB_URL"] = "mysql+mysqlconnector://root:NewStrongPassword@localhost:3306/stock_prediction_test"
 
 def test_single_stock_trading():
     """Test the trading system with a single stock"""
