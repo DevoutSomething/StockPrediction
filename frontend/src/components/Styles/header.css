@@ -101,6 +101,10 @@
 }
 
 .back-button-container {
+  position: absolute;
+  right: -150px; /* Adjust spacing from the right */
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
 }
@@ -205,4 +209,3 @@
     transform: translateY(0);
   }
 }
-
