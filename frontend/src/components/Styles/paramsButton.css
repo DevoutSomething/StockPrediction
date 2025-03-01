@@ -12,16 +12,18 @@
   text-align: center;
   border-radius: 50px;
   text-decoration: none;
-  transition: background 0.5s ease-in-out, transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   margin-left: auto;
   margin-right: auto;
   width: auto;
   max-width: 200px;
   border: 2px solid rgb(155, 186, 218);
+  background: linear-gradient(to right, #60a5fa, #3b82f6, #60a5fa);
+  background-size: 400% 400%;
+  animation: gradientAnimation 4s ease infinite;
 }
 
 .params-button:hover {
-  background: linear-gradient(to right, white, #60a5fa);
   color: black;
   transform: scale(1.05);
   cursor: pointer;
@@ -30,4 +32,17 @@
 .params-button:active {
   background-color: #87ceeb;
   color: white;
+}
+
+/* Keyframes for the gradient animation */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
