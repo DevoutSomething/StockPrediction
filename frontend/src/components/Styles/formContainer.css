@@ -11,8 +11,7 @@
   --color-border-focus: #3b82f6;
   --border-radius: 12px;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -20,26 +19,24 @@
 .page-container {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centers vertically */
-  align-items: center; /* Centers horizontally */
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
-  width: 100%; /* Ensures full-width container */
+  width: 100%;
   padding: 2rem;
-  box-sizing: border-box; /* Prevents unexpected width issues */
+  box-sizing: border-box;
 }
 
-/* Form heading styling */
 /* Form heading styling with a gradient from blue to black */
 .form-heading {
-  background: linear-gradient(90deg, #3b82f6, #000000); /* Blue to black gradient */
-  -webkit-background-clip: text; /* Ensures the gradient applies to the text */
-  color: transparent; /* Makes the text color transparent so the gradient shows */
-  font-weight: bold; /* Make the text bold for emphasis */
-  font-size: 2.5rem; /* Adjust font size as needed */
-  text-align: center; /* Center the heading */
+  background: linear-gradient(90deg, #3b82f6, #000000);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: bold;
+  font-size: 2.5rem;
+  text-align: center;
   margin-bottom: 1rem;
 }
-
 
 /* Form container with border and centered alignment */
 .form-container-wrapper {
@@ -47,21 +44,50 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: linear-gradient(135deg, #1f2937, #374151);
-  padding: 2.5rem;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-md);
   width: 100%;
   max-width: 900px;
-  margin: auto; /* Ensures centering */
-  transition: transform var(--transition), box-shadow var(--transition),
-    border-color var(--transition);
-  background-size: 400% 400%;
-  animation: gradientAnimation 15s ease infinite;
+  margin: auto;
+  position: relative;
 }
 
-/* Gradient animation */
+/* Gradient border container */
+.gradient-border-wrap {
+  position: relative;
+  padding: 8px; /* Border thickness */
+  border-radius: var(--border-radius);
+  background: linear-gradient(90deg, #3b82f6, #ffffff, #3b82f6);
+  background-size: 300% 100%;
+  animation: gradientBorder 6s ease infinite;
+  box-shadow: var(--shadow-md);
+  width: 100%;
+}
+
+/* Gradient border animation */
+@keyframes gradientBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Content inside the gradient border */
+.gradient-border-content {
+  background: linear-gradient(135deg, #1f2937, #374151);
+  border-radius: calc(var(--border-radius) - 2px);
+  padding: 2.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  transition: transform var(--transition);
+}
+
+/* Gradient animation for the background */
 @keyframes gradientAnimation {
   0% {
     background-position: 0% 50%;
@@ -75,10 +101,13 @@
 }
 
 /* Subtle hover effect */
-.form-container-wrapper:hover {
+.form-container-wrapper:hover .gradient-border-content {
   transform: translateY(-5px);
-  box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.05);
+}
+
+.form-container-wrapper:hover .gradient-border-wrap {
+  animation: gradientBorder 3s ease infinite; /* Speed up animation on hover */
+  box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.05);
 }
 
 /* General form container styling */
@@ -116,8 +145,7 @@
   background-color: var(--color-background);
   color: var(--color-text);
   box-sizing: border-box;
-  transition: border-color var(--transition), box-shadow var(--transition),
-    background-color var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition), background-color var(--transition);
 }
 
 /* Focus effect for input fields */
@@ -157,9 +185,17 @@ input[type="number"] {
 .form-description {
   font-size: 1.25rem;
   font-weight: 500;
-  color: white; /* Setting text color to white */
+  color: white;
   text-align: center;
   margin-bottom: 1.5rem;
   letter-spacing: 1px;
   transition: color var(--transition);
 }
+
+/* Enhanced styling for when all fields are filled */
+.form-container-wrapper.filled .gradient-border-wrap {
+  background: linear-gradient(90deg, #051e46, #3eeeb4, #3b82f6);
+  background-size: 300% 100%;
+  animation: gradientBorder 4s ease infinite;
+}
+
