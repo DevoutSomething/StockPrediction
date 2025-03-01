@@ -1,0 +1,21 @@
+/* ParamsButton.css */
+
+.params-button {
+  margin-top: 40px;
+  display: inline-block;
+  padding: 10px 40px; /* Large padding to make the button big */
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  font-size: 18px; /* Font size for better visibility */
+  font-weight: bold; /* Make text bold */
+  text-align: center; /* Center the text */
+  border-radius: 8px; /* Rounded corners for modern look */
+  text-decoration: none; /* Remove underline from link */
+  transition: background-color 0.3s, transform 0.2s ease-in-out; /* Smooth transition for hover effect */
+}
+
+.params-button:hover {
+  background-color: #45a049; /* Darker green when hovering */
+  transform: scale(1.1); /* Slightly increase the button size */
+  cursor: pointer; /* Change cursor to indicate the button is clickable */
+}

@@ -7,6 +7,7 @@ export default function Home() {
     <div className="home-container">
       <Header />
       <Body />
+      <ParamsButton route="/params" />
     </div>
   )
 }
