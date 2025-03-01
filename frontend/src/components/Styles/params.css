@@ -6,4 +6,13 @@
   padding-top: 80px; /* Padding from the header to the inputs */
   height: 100vh;
   justify-content: flex-start; /* Align items to the top */
+  background: linear-gradient(85deg, #073d70, #d7e8ff); /* Blue gradient */
+  color: #333; /* Ensure text is dark enough to contrast against the gradient */
+  font-family: "Arial", sans-serif;
+  transition: background 0.3s ease; /* Smooth transition on background */
+}
+
+/* Optional: Adding a box shadow around the page */
+.params-page {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
