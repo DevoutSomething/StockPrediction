@@ -91,3 +91,15 @@ th button:hover {
 .lowRisk {
   color: rgb(3, 151, 3);
 }
+
+a {
+  color: white; /* White text */
+  text-decoration: none; /* Removes the underline */
+  transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth transition for hover effect */
+  opacity: 0.9; /* Slight transparency for natural look */
+}
+
+a:hover {
+  transform: scale(1.05); /* Slight growth effect on hover */
+  opacity: 1; /* Full opacity on hover */
+}
