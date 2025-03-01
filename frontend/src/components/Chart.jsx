@@ -1,83 +1,88 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import "./Styles/chart.css"
+import { useState } from "react";
+import "./Styles/chart.css";
 
 export default function Chart({ dataArr }) {
-  const [data, setData] = useState(dataArr)
-  const [sortedByName, setSortedByName] = useState(false)
-  const [sortedByPrice, setSortedByPrice] = useState(false)
-  const [sortedByRisk, setSortedByRisk] = useState(false)
-  const [sortedByProfit, setSortedByProfit] = useState(false)
+  const [data, setData] = useState(dataArr);
+  const [sortedByName, setSortedByName] = useState(false);
+  const [sortedByPrice, setSortedByPrice] = useState(false);
+  const [sortedByRisk, setSortedByRisk] = useState(false);
+  const [sortedByProfit, setSortedByProfit] = useState(false);
 
   const sortDataName = () => {
-    const sortedData = [...data]
+    const sortedData = [...data];
 
     sortedData.sort((a, b) => {
       if (a.name < b.name) {
-        return sortedByName ? 1 : -1
+        return sortedByName ? 1 : -1;
       }
       if (a.name > b.name) {
-        return sortedByName ? -1 : 1
+        return sortedByName ? -1 : 1;
       }
-      return 0
-    })
+      return 0;
+    });
 
-    setData(sortedData)
-    setSortedByName(!sortedByName)
-  }
+    setData(sortedData);
+    setSortedByName(!sortedByName);
+  };
 
   const sortDataPrice = () => {
-    const sortedData = [...data]
+    const sortedData = [...data];
 
     sortedData.sort((a, b) => {
       if (a.price < b.price) {
-        return sortedByPrice ? 1 : -1
+        return sortedByPrice ? 1 : -1;
       }
       if (a.price > b.price) {
-        return sortedByPrice ? -1 : 1
+        return sortedByPrice ? -1 : 1;
       }
-      return 0
-    })
+      return 0;
+    });
 
-    setData(sortedData)
-    setSortedByPrice(!sortedByPrice)
-  }
+    setData(sortedData);
+    setSortedByPrice(!sortedByPrice);
+  };
 
   const sortDataRisk = () => {
-    const sortedData = [...data]
+    const sortedData = [...data];
 
     sortedData.sort((a, b) => {
       if (a.risk < b.risk) {
-        return sortedByRisk ? 1 : -1
+        return sortedByRisk ? 1 : -1;
       }
       if (a.risk > b.risk) {
-        return sortedByRisk ? -1 : 1
+        return sortedByRisk ? -1 : 1;
       }
-      return 0
-    })
+      return 0;
+    });
 
-    setData(sortedData)
-    setSortedByRisk(!sortedByRisk)
-  }
+    setData(sortedData);
+    setSortedByRisk(!sortedByRisk);
+  };
 
   const sortDataProfit = () => {
-    const sortedData = [...data]
+    const sortedData = [...data];
 
     sortedData.sort((a, b) => {
       if (a.profit < b.profit) {
-        return sortedByProfit ? 1 : -1
+        return sortedByProfit ? 1 : -1;
       }
       if (a.profit > b.profit) {
-        return sortedByProfit ? -1 : 1
+        return sortedByProfit ? -1 : 1;
       }
-      return 0
-    })
+      return 0;
+    });
 
-    setData(sortedData)
-    setSortedByProfit(!sortedByProfit)
-  }
+    setData(sortedData);
+    setSortedByProfit(!sortedByProfit);
+  };
 
+  const getRiskClass = (risk) => {
+    if (risk <= 0.3) return "veryRisky";
+    if (risk <= 0.6) return "mediumRisk";
+    return "lowRisk";
+  };
   return (
     <div>
       <div className="table-container">
@@ -103,7 +108,7 @@ export default function Chart({ dataArr }) {
               <tr key={index}>
                 <td>{stock.name}</td>
                 <td>{stock.price}</td>
-                <td>{stock.risk}</td>
+                <td className={getRiskClass(stock.risk)}>{stock.risk}</td>
                 <td>{stock.profit}</td>
               </tr>
             ))}
@@ -111,5 +116,5 @@ export default function Chart({ dataArr }) {
         </table>
       </div>
     </div>
-  )
+  );
 }

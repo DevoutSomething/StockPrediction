@@ -9,14 +9,16 @@
   border: 3.8px solid #333333;
   border-radius: 12px;
   transition: border 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
 /* Table styling */
 table {
   width: 100%;
   border-collapse: collapse;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   color: #ffffff;
 }
 
@@ -78,3 +80,14 @@ th button:hover {
   }
 }
 
+.veryRisky {
+  color: rgb(130, 0, 0);
+}
+
+.mediumRisk {
+  color: rgb(227, 163, 14);
+}
+
+.lowRisk {
+  color: rgb(3, 151, 3);
+}
