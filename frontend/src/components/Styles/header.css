@@ -63,12 +63,12 @@
 }
 
 .indicator.up {
-  background: var(--success);
+  background: var(--primary);
   animation: pulse 2s infinite;
 }
 
 .indicator.down {
-  background: var(--danger);
+  background: var(--success);
   animation: pulse 2s infinite 1s;
 }
 
@@ -204,4 +204,3 @@
 .header {
   animation: headerAppear 0.3s ease-out forwards;
 }
-

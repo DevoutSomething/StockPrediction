@@ -18,23 +18,23 @@ export default function FormContainer() {
           isFirst={true}
           state={payment}
           setState={setPayment}
-          text="Payment"
+          text="Investment Amount"
           id="payment"
-          defaultText="Enter Payment"
+          defaultText="Enter Investment"
         />
         <Form
           state={profit}
           setState={setProfit}
-          text="Profit"
+          text="Desired Profit"
           id="profit"
-          defaultText="Enter Profit"
+          defaultText="Enter Desired Profit"
         />
         <TimeForm
           state={time}
           setState={setTime}
-          text="Time"
+          text="Time Frame"
           id="time"
-          defaultText="Enter Time"
+          defaultText="Enter When to Sell"
         />
       </div>
     </div>
