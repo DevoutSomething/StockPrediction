@@ -96,10 +96,10 @@ export default function Chart({ dataArr }) {
                 <button onClick={sortDataPrice}>Price</button>
               </th>
               <th>
-                <button onClick={sortDataRisk}>Risk</button>
+                <button onClick={sortDataProfit}>Profit</button>
               </th>
               <th>
-                <button onClick={sortDataProfit}>Profit</button>
+                <button onClick={sortDataRisk}>Risk</button>
               </th>
             </tr>
           </thead>
@@ -108,8 +108,8 @@ export default function Chart({ dataArr }) {
               <tr key={index}>
                 <td>{stock.name}</td>
                 <td>{stock.price}</td>
-                <td className={getRiskClass(stock.risk)}>{stock.risk}</td>
                 <td>{stock.profit}</td>
+                <td className={getRiskClass(stock.risk)}>{stock.risk}</td>
               </tr>
             ))}
           </tbody>
