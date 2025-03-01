@@ -3,9 +3,9 @@ import { createContext, useState } from "react";
 export const GlobalContext = createContext(null);
 
 export default function GlobalState({ children }) {
-  const [payment, setPayment] = useState(null);
-  const [time, setTime] = useState(null);
-  const [profit, setProfit] = useState(null);
+  const [payment, setPayment] = useState("");
+  const [time, setTime] = useState("");
+  const [profit, setProfit] = useState("");
   return (
     <GlobalContext.Provider
       value={{
