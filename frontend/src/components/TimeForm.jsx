@@ -44,8 +44,8 @@ export default function TimeForm({ state, setState, text, defaultText, id }) {
         name={id}
         placeholder={defaultText}
         value={!state ? state : formatDate(state)}
-        onChange={(e) => setState(e.target.value)}
         onFocus={handleInputFocus}
+        readonly
       />
       {showCalendar && (
         <div className="calendar-container" ref={calendarRef}>
