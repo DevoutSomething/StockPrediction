@@ -5,7 +5,7 @@ export default function Stocks() {
   const dataArr = createDefaultData();
 
   return (
-    <div>
+    <div className="stocks-main">
       <Header backButton={true} />
       <StockBody dataArr={dataArr} />
     </div>
