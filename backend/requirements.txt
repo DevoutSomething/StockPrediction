@@ -3,3 +3,9 @@ yfinance>=0.1.63
 newsapi-python>=0.2.6
 uvicorn>=0.15.0 
 newscatcherapi-python-sdk
+fastapi
+uvicorn
+sqlalchemy
+yfinance
+requests
+scikit-learn
