@@ -1,85 +1,82 @@
-import "./styles/stocksTable.css";
-import { useState } from "react";
+"use client"
+
+import { useState } from "react"
+import "./styles/chart.css"
 
 export default function Chart({ dataArr }) {
-  const [data, setData] = useState(dataArr);
-  const [sortedByName, setSortedByName] = useState(false);
-  const [sortedByPrice, setSortedByPrice] = useState(false);
-  const [sortedByRisk, setSortedByRisk] = useState(false);
-  const [sortedByProfit, setSortedByProfit] = useState(false);
+  const [data, setData] = useState(dataArr)
+  const [sortedByName, setSortedByName] = useState(false)
+  const [sortedByPrice, setSortedByPrice] = useState(false)
+  const [sortedByRisk, setSortedByRisk] = useState(false)
+  const [sortedByProfit, setSortedByProfit] = useState(false)
 
-  const sortDataName = function () {
-    // Create a copy of the data to avoid direct mutation
-    const sortedData = [...data];
+  const sortDataName = () => {
+    const sortedData = [...data]
 
     sortedData.sort((a, b) => {
-      // Compare based on name instead of age, assuming name is the property to sort by
       if (a.name < b.name) {
-        return sortedByName ? 1 : -1;
+        return sortedByName ? 1 : -1
       }
       if (a.name > b.name) {
-        return sortedByName ? -1 : 1;
+        return sortedByName ? -1 : 1
       }
-      return 0;
-    });
+      return 0
+    })
 
-    // Update the state with the sorted data and toggle the sorting direction
-    setData(sortedData);
-    setSortedByName(!sortedByName);
-  };
-  const sortDataPrice = function () {
-    const sortedData = [...data];
+    setData(sortedData)
+    setSortedByName(!sortedByName)
+  }
+
+  const sortDataPrice = () => {
+    const sortedData = [...data]
 
     sortedData.sort((a, b) => {
-      // Compare based on name instead of age, assuming name is the property to sort by
       if (a.price < b.price) {
-        return sortedByPrice ? 1 : -1;
+        return sortedByPrice ? 1 : -1
       }
       if (a.price > b.price) {
-        return sortedByPrice ? -1 : 1;
+        return sortedByPrice ? -1 : 1
       }
-      return 0;
-    });
+      return 0
+    })
 
-    setData(sortedData);
-    setSortedByPrice(!sortedByPrice);
-  };
+    setData(sortedData)
+    setSortedByPrice(!sortedByPrice)
+  }
 
-  const sortDataRisk = function () {
-    const sortedData = [...data];
+  const sortDataRisk = () => {
+    const sortedData = [...data]
 
     sortedData.sort((a, b) => {
-      // Compare based on name instead of age, assuming name is the property to sort by
       if (a.risk < b.risk) {
-        return sortedByRisk ? 1 : -1;
+        return sortedByRisk ? 1 : -1
       }
       if (a.risk > b.risk) {
-        return sortedByRisk ? -1 : 1;
+        return sortedByRisk ? -1 : 1
       }
-      return 0;
-    });
+      return 0
+    })
 
-    setData(sortedData);
-    setSortedByRisk(!sortedByRisk);
-  };
+    setData(sortedData)
+    setSortedByRisk(!sortedByRisk)
+  }
 
-  const sortDataProfit = function () {
-    const sortedData = [...data];
+  const sortDataProfit = () => {
+    const sortedData = [...data]
 
     sortedData.sort((a, b) => {
-      // Compare based on name instead of age, assuming name is the property to sort by
       if (a.profit < b.profit) {
-        return sortedByProfit ? 1 : -1;
+        return sortedByProfit ? 1 : -1
       }
       if (a.profit > b.profit) {
-        return sortedByProfit ? -1 : 1;
+        return sortedByProfit ? -1 : 1
       }
-      return 0;
-    });
+      return 0
+    })
 
-    setData(sortedData);
-    setSortedByProfit(!sortedByProfit);
-  };
+    setData(sortedData)
+    setSortedByProfit(!sortedByProfit)
+  }
 
   return (
     <div>
@@ -114,5 +111,6 @@ export default function Chart({ dataArr }) {
         </table>
       </div>
     </div>
-  );
+  )
 }
+

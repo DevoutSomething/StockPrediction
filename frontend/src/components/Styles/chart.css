@@ -21,7 +21,13 @@
   max-width: 900px;
   margin: 0 auto;
   overflow-x: auto;
+  border: 3.8px solid #111827;
+  border-radius: 12px;
+  transition: border 0.3s ease, box-shadow 0.3s ease; 
+  
 }
+
+
 
 /* Table styling */
 table {
@@ -30,6 +36,7 @@ table {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
   color: var(--text-primary);
+  
 }
 
 thead {
@@ -61,6 +68,23 @@ tbody tr:hover {
 /* First column (Name) styling */
 tbody tr td:first-child {
   font-weight: 600;
+}
+
+/* Button styling */
+th button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  padding: 0;
+}
+
+th button:hover {
+  color: var(--primary-color);
 }
 
 /* Responsive adjustments */
