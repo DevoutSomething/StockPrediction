@@ -1,21 +1,27 @@
 /* ParamsButton.css */
 
 .params-button {
-  margin-top: 40px;
-  display: inline-block;
-  padding: 10px 40px; /* Large padding to make the button big */
-  background-color: #4caf50; /* Green background */
+  margin-top: 100px;
+  margin-bottom: 50px;
+  display: block; /* Keep button as a block element */
+  padding: 10px 20px; /* Padding for a smaller button */
+  background-color: #000000; /* Black background */
   color: white; /* White text */
-  font-size: 18px; /* Font size for better visibility */
-  font-weight: bold; /* Make text bold */
+  font-size: 16px; /* Adjust font size */
+  font-weight: bold; /* Bold text */
   text-align: center; /* Center the text */
-  border-radius: 8px; /* Rounded corners for modern look */
-  text-decoration: none; /* Remove underline from link */
-  transition: background-color 0.3s, transform 0.2s ease-in-out; /* Smooth transition for hover effect */
+  border-radius: 50px; /* More rounded corners for modern look */
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s, transform 0.2s ease-in-out; /* Smooth hover effect */
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+  width: auto; /* Button size adjusts to text */
+  max-width: 200px; /* Optional: Limit max width */
+  border: 2px solid black; /* Black border with subtle thickness */
 }
 
 .params-button:hover {
   background-color: #45a049; /* Darker green when hovering */
-  transform: scale(1.1); /* Slightly increase the button size */
+  transform: scale(1.05); /* Slightly increase the button size on hover */
   cursor: pointer; /* Change cursor to indicate the button is clickable */
 }
