@@ -106,7 +106,15 @@ export default function Chart({ dataArr }) {
           <tbody>
             {data.map((stock, index) => (
               <tr key={index}>
-                <td>{stock.name}</td>
+                <td>
+                  <a
+                    href={`https://www.nasdaq.com/market-activity/stocks/${stock.code}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {stock.name}
+                  </a>
+                </td>
                 <td>{stock.price}</td>
                 <td>{stock.profit}</td>
                 <td className={getRiskClass(stock.risk)}>{stock.risk}</td>
