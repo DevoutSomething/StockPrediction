@@ -35,22 +35,38 @@ export default function Chart({ dataArr }) {
           <thead>
             <tr>
               <th>
-                <button onClick={() => sortData("name", setSortedByName, sortedByName)}>
+                <button
+                  onClick={() =>
+                    sortData("name", setSortedByName, sortedByName)
+                  }
+                >
                   Name {sortedByName ? <FaChevronUp /> : <FaChevronDown />}
                 </button>
               </th>
               <th>
-                <button onClick={() => sortData("price", setSortedByPrice, sortedByPrice)}>
+                <button
+                  onClick={() =>
+                    sortData("price", setSortedByPrice, sortedByPrice)
+                  }
+                >
                   Price {sortedByPrice ? <FaChevronUp /> : <FaChevronDown />}
                 </button>
               </th>
               <th>
-                <button onClick={() => sortData("profit", setSortedByProfit, sortedByProfit)}>
+                <button
+                  onClick={() =>
+                    sortData("profit", setSortedByProfit, sortedByProfit)
+                  }
+                >
                   Profit {sortedByProfit ? <FaChevronUp /> : <FaChevronDown />}
                 </button>
               </th>
               <th>
-                <button onClick={() => sortData("risk", setSortedByRisk, sortedByRisk)}>
+                <button
+                  onClick={() =>
+                    sortData("risk", setSortedByRisk, sortedByRisk)
+                  }
+                >
                   Risk {sortedByRisk ? <FaChevronUp /> : <FaChevronDown />}
                 </button>
               </th>
@@ -68,6 +84,7 @@ export default function Chart({ dataArr }) {
                     {stock.name}
                   </a>
                 </td>
+
                 <td>{stock.price}</td>
                 <td>{stock.profit}</td>
                 <td className={getRiskClass(stock.risk)}>{stock.risk}</td>
