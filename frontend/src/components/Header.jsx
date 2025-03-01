@@ -10,13 +10,11 @@ const Header = () => {
         <h1>Stock Predictor</h1>
         <nav className="main-nav">
           <Link to="/" className="nav-link">
-            Home
           </Link>
           <Link to="/params" className="nav-link">
-            Parameters
           </Link>
           <Link to="/stocks" className="nav-link">
-            Stocks
+            
           </Link>
         </nav>
       </div>
