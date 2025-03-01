@@ -49,10 +49,13 @@ export default function TimeForm({ state, setState, text, defaultText, id }) {
 
   // Apply the 'valid' class if a date is selected
   const inputClass = state ? "valid" : "";
+  const labelClass = state ? "valid" : ""; // Apply 'valid' class to label too
 
   return (
     <div className="input-group">
-      <label htmlFor={id}>{text}</label>
+      <label htmlFor={id} className={labelClass}>
+        {text}
+      </label>
       <input
         type="text"
         id={id}
