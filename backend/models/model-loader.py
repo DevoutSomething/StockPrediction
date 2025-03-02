@@ -5,7 +5,7 @@ import yfinance as yf
 import os
 import glob
 import matplotlib.pyplot as plt
-from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.models import Sequential, Model, load_model
 from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.optimizers import Adam
 import argparse
@@ -480,6 +480,21 @@ def main():
     # Visualize predictions if requested
     if args.visualize and predictions:
         visualize_predictions(predictions)
+
+
+def load_trained_model(model_path):
+    """
+    Load a trained model from the specified path.
+
+    Args:
+        model_path (str): Path to the trained model (.h5 file).
+
+    Returns:
+        model: Loaded Keras model.
+    """
+    model = load_model(model_path)
+    print(f"Model loaded from {model_path}")
+    return model
 
 
 if __name__ == "__main__":

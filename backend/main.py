@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import time
 import os
-from utils import (
+from backend.utils import (
     get_stock_info, 
     get_stock_news,
     predict_stock_price,

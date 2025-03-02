@@ -9,7 +9,7 @@ sys.path.append(str(backend_dir.parent))
 
 # Set environment variables for testing
 os.environ["TESTING"] = "1"
-os.environ["DB_URL"] = "mysql+mysqlconnector://root:NewStrongPassword@localhost:3306/stock_prediction_test"
+os.environ["DB_URL"] = "mysql+mysqlconnector://root:171205@Kunj@localhost:3306/stock_prediction"
 
 @pytest.fixture(autouse=True)
 def setup_test_env():

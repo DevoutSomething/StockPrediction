@@ -1,167 +1,291 @@
-# Stock Prediction and Trading System
+# Enhanced Stock Risk Prediction System
 
-A comprehensive machine learning-based system for stock prediction and automated trading using reinforcement learning algorithms. This system provides a RESTful API for stock data analysis, price predictions, and trade recommendations.
+A comprehensive TensorFlow-based deep learning system for predicting stock risk levels and optimizing investment portfolios based on user preferences and real-time market data.
 
-## Features
+## New Features
 
-- **Stock Data API**: Fetch historical and real-time stock data
-- **Price Prediction**: Machine learning-based stock price predictions
-- **Reinforcement Learning Models**: DQN and PPO algorithms for automated trading
-- **Portfolio Optimization**: Multi-stock portfolio optimization with risk adjustment
-- **News Sentiment Analysis**: Incorporation of news sentiment into predictions
-- **Database Integration**: Store predictions, stock data, and portfolio information
-- **Docker Support**: Easy deployment with Docker containers
+- **Real-Time Data Fetching**: Toggle option to fetch the latest stock data from Yahoo Finance
+- **Portfolio Optimization**: Automatically select the best stocks for a custom portfolio based on risk tolerance
+- **Large-Scale Support**: Optimized to handle 3000+ companies in your dataset
+- **Multiple Scenarios**: Run and compare different investment scenarios
+- **Configuration Management**: Flexible configuration system for easy customization
 
-## Architecture
+## System Requirements
 
-The system consists of the following components:
+- Python 3.8+
+- TensorFlow 2.6+
+- pandas, numpy, scikit-learn
+- Flask
+- Matplotlib, Seaborn
+- SHAP
+- yfinance (for real-time data)
 
-- **FastAPI Backend**: REST API for all services
-- **MySQL Database**: Store stock data, predictions, and trading history
-- **TensorFlow ML Models**: Deep reinforcement learning for trading decisions
-- **YFinance Integration**: Real-time stock data retrieval
-- **News API Integration**: News sentiment analysis
+## Installation
 
-## Getting Started
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/stock-risk-prediction.git
+cd stock-risk-prediction
 
-### Prerequisites
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-- Docker and Docker Compose
-- Python 3.9+ (for local development)
-- (Optional) API keys for News API
+# Install dependencies
+pip install -r requirements.txt
+```
 
-### Installation
+## Quick Start
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd stock-prediction-system
-   ```
+### Setting Up Configuration
 
-2. Run the startup script:
-   ```bash
-   bash start.sh
-   ```
+```bash
+# Initialize default configuration
+python main.py config
 
-   This script will:
-   - Create necessary directories
-   - Create a default `.env` file (edit this with your API keys)
-   - Build and start Docker containers
-   - Wait for the API to be ready
+# Enable real-time data fetching
+python main.py config --toggle-real-time on
 
-3. Access the API documentation:
-   ```
-   http://localhost:8000/docs
-   ```
+# Set maximum portfolio size
+python main.py config --set portfolio max_portfolio_size 15
+```
 
-### Manual Setup
+### Training the Model
 
-If you prefer to set up manually:
+```bash
+# Train with default settings
+python main.py train --data data/stock_data.csv
 
-1. Create a `.env` file with your configuration:
-   ```
-   DB_USER=root
-   DB_PASSWORD=your_password
-   DB_HOST=db
-   DB_PORT=3306
-   DB_NAME=stock_prediction
-   NEWS_API_KEY=your_news_api_key
-   ```
+# Train with custom settings
+python main.py train --data data/stock_data.csv --stocks AAPL MSFT GOOGL --epochs 100 --batch-size 64 --output custom_model
+```
 
-2. Build and start the containers:
-   ```bash
-   docker-compose up -d
-   ```
+### Fetching the Latest Data
 
-## API Endpoints
+```bash
+# Update all stock data with the latest from Yahoo Finance
+python main.py update-data --data data/stock_data.csv
 
-The system provides the following key endpoints:
+# Update specific symbols
+python main.py update-data --data data/stock_data.csv --symbols AAPL TSLA MSFT
+```
 
-- `GET /stock/{symbol}`: Get stock data for a specific symbol
-- `GET /news/{symbol}`: Get latest news for a specific stock
-- `POST /predict`: Predict best stocks based on investment criteria
-- `GET /ml/recommend/{symbol}`: Get trading recommendation
-- `GET /ml/portfolio`: Optimize a portfolio of stocks
+### Optimizing a Portfolio
 
-For full API documentation, visit the `/docs` endpoint.
+```bash
+# Create an optimized portfolio based on model predictions
+python main.py optimize --model models/stock_prediction_model.h5 --data data/stock_data.csv --scalers models/scalers --investment 10000 --return 15 --horizon 365 --risk Medium --real-time
+```
 
-## Machine Learning Models
+### Starting the API Server
 
-The system uses two main reinforcement learning algorithms:
+```bash
+# Start the API server
+python main.py serve --config config.json --real-time
+```
 
-### DQN (Deep Q-Network)
-- Good for learning specific trading patterns
-- More aggressive trading strategy
+## API Usage
 
-### PPO (Proximal Policy Optimization)
-- More stable learning and smoother trading
-- Better for long-term investment strategies and risk management
+### Making a Prediction and Portfolio Optimization
 
-## Development
+```bash
+curl -X POST http://localhost:5000/predict \
+  -H "Content-Type: application/json" \
+  -d '{
+    "investment_amount": 10000,
+    "expected_return": 15,
+    "time_horizon": 365,
+    "symbols": ["AAPL", "GOOGL", "TSLA", "AMZN", "MSFT"],
+    "use_real_time": true
+  }'
+```
 
-### Project Structure
+### Toggling Real-Time Data
+
+```bash
+curl -X POST http://localhost:5000/toggle-real-time \
+  -H "Content-Type: application/json" \
+  -d '{
+    "use_real_time": true
+  }'
+```
+
+### Running Multiple Scenarios
+
+```bash
+curl -X POST http://localhost:5000/batch_predict \
+  -H "Content-Type: application/json" \
+  -d '{
+    "scenarios": [
+      {
+        "investment_amount": 10000,
+        "expected_return": 15,
+        "time_horizon": 365,
+        "risk_tolerance": "Low"
+      },
+      {
+        "investment_amount": 10000,
+        "expected_return": 15,
+        "time_horizon": 365,
+        "risk_tolerance": "High"
+      }
+    ],
+    "symbols": ["AAPL", "GOOGL", "TSLA", "AMZN", "MSFT"],
+    "use_real_time": true
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "predictions": {
+    "stock_recommendations": {
+      "AAPL": {
+        "recommendation": "Buy",
+        "confidence": 0.82
+      },
+      "GOOGL": {
+        "recommendation": "Hold",
+        "confidence": 0.55
+      },
+      ...
+    }
+  },
+  "optimized_portfolio": {
+    "stocks": [
+      {
+        "symbol": "AAPL",
+        "recommendation": "Buy",
+        "confidence": 0.82,
+        "risk": 0.18,
+        "allocation_percentage": 28.5,
+        "investment_amount": 2850.0
+      },
+      ...
+    ],
+    "risk_level": "Medium",
+    "total_investment": 10000,
+    "expected_return": 15,
+    "time_horizon": 365,
+    "portfolio_size": 5,
+    "average_confidence": 0.72,
+    "average_risk": 0.28
+  }
+}
+```
+
+## Project Structure
 
 ```
 stock-prediction-system/
-├── config.py              # Configuration management
-├── database/              # Database models and connection
-├── main.py                # Main application entry point
-├── ml_endpoints.py        # ML API endpoints
-├── ml_integration.py      # Integration with ML models
-├── models/                # Saved ML models
-├── tests/                 # Test modules
-├── tf_train.py            # ML model training
-├── utils.py               # Utility functions
-├── docker-compose.yml     # Docker Compose configuration
-└── Dockerfile             # Docker build configuration
+├── data/
+│   ├── stock_data.csv
+│   └── cache/                 # Cache for real-time data
+├── models/
+│   ├── stock_prediction_model.h5
+│   ├── training_results.json
+│   ├── scalers/
+│   └── visualizations/
+├── stock_data_preprocessing.py  # Data preprocessing module
+├── model_architecture.py        # LSTM model architecture
+├── training_pipeline.py         # Training pipeline
+├── api_service.py               # Flask API service
+├── real_time_data.py            # Real-time data fetching
+├── portfolio_optimizer.py       # Portfolio optimization
+├── config.py                    # Configuration management
+├── main.py                      # Main script
+├── config.json                  # System configuration
+├── requirements.txt             # Dependencies
+└── README.md                    # This file
 ```
 
-### Running Tests
+## Configuration Options
+
+The system uses a JSON configuration file with the following sections:
+
+### Data Settings
+
+```json
+"data": {
+  "use_real_time": true,
+  "cache_dir": "data/cache",
+  "cache_expiry_hours": 24,
+  "historical_data_path": "data/stock_data.csv"
+}
+```
+
+### Model Settings
+
+```json
+"model": {
+  "model_path": "models/stock_prediction_model.h5",
+  "scalers_path": "models/scalers",
+  "sequence_length": 30,
+  "batch_size": 32,
+  "epochs": 50
+}
+```
+
+### Portfolio Settings
+
+```json
+"portfolio": {
+  "default_risk_tolerance": "Medium",
+  "max_portfolio_size": 10
+}
+```
+
+### Stock Settings
+
+```json
+"stocks": {
+  "default_symbols": ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA"],
+  "max_stocks_to_analyze": 3000
+}
+```
+
+## Customization
+
+### Adding New Features
+
+To add new technical indicators:
+
+1. Modify the `engineer_features` method in `api_service.py` or `stock_data_preprocessing.py`
+2. Ensure the new features are properly normalized
+
+### Supporting More Stocks
+
+The system can handle up to 3000 stocks by default, but this can be adjusted:
 
 ```bash
-# Run API tests
-pytest test_utils.py
-
-# Run ML tests
-pytest test_tf_train.py
+python main.py config --set stocks max_stocks_to_analyze 5000
 ```
 
-### Local Development
+### Risk Tolerance Levels
 
-For local development without Docker:
+The system supports three risk tolerance levels:
 
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+- **Low**: Conservative investments with lower risk and potentially lower returns
+- **Medium**: Balanced approach with moderate risk and returns
+- **High**: Aggressive investments with higher risk and potentially higher returns
 
-2. Create a local MySQL database:
-   ```bash
-   mysql -u root -p -e "CREATE DATABASE stock_prediction;"
-   ```
+## Troubleshooting
 
-3. Set environment variables:
-   ```bash
-   export DB_HOST=localhost
-   export DB_USER=root
-   export DB_PASSWORD=your_password
-   ```
+### Common Issues
 
-4. Run the application:
-   ```bash
-   python main.py
-   ```
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+- **Real-Time Data Errors**: If Yahoo Finance API is unavailable, disable real-time with `--no-real-time`
+- **Memory Issues**: When processing 3000+ stocks, increase your system's available memory
+- **Cache Issues**: Clear the cache directory (`data/cache`) if you encounter stale data problems
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+[MIT License](LICENSE)
 
-## Acknowledgments
+## Acknowledgements
 
-- YFinance for providing stock data
-- FastAPI for the excellent API framework
-- TensorFlow for machine learning capabilities
+- TensorFlow and Keras for the deep learning framework
+- pandas and numpy for data processing
+- Flask for the API server
+- SHAP for model explainability
+- Yahoo Finance for real-time market data
